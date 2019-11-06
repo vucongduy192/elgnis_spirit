@@ -21,13 +21,13 @@
 						<%= link_to "#" do %><i class="fa fa-heart"></i> 出会う <% end %>
 					</li>
 		
-		      <li class="<%= if params[:action] == "post" then "active" end %> nav-btn">
-		        <%= link_to "#" do %><i class="fa fa-images"></i> 画像を投稿 <% end %>
-		      </li>
-		
-		      <li class="<%= if params[:action] == "post" then "active" end %> nav-btn">
-		        <%= link_to "#" do %><i class="fa fa-images"></i> 自分の画像 <% end %>
-		      </li>
+			      	<li class="<%= if params[:action] == "post" then "active" end %> nav-btn">
+			        	<%= link_to new_image_path do %><i class="fa fa-images"></i> 画像を投稿 <% end %>
+			      	</li>
+			
+			      	<li class="<%= if params[:action] == "post" then "active" end %> nav-btn">
+			        	<%= link_to images_path do %><i class="fa fa-images"></i> 自分の画像 <% end %>
+			      	</li>
 		
 					<li class="<%= if params[:action] == "edit" then "active" end %> nav-btn">
 						<%= link_to "#" do %><i class="fa fa-cog"></i> 設定 <% end %>
@@ -45,7 +45,7 @@
 		  </button>
 
 		  <%= link_to root_path, class: "navbar-brand" do %>
-		  	<%= image_tag "IMG_3341.PNG", alt: "Tinstuk logo", class: "logo-brand" %>
+		  	<%= image_tag "logo_elgnis", alt: "Tinstuk logo", class: "logo-brand" %>
 		  <% end %>
 
 		  <button type="button" class="navbar-toggle button-nav pull-right">
