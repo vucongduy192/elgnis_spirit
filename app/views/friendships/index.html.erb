@@ -1,0 +1,51 @@
+<body>
+<!-- start padding container -->
+<div class="wrap">
+  <!-- start jtinder container -->
+  <div id="tinderslide">
+   	
+  </div>
+  <!-- end jtinder container -->
+</div>
+<!-- end padding container -->
+
+<!-- jTinder trigger by buttons  -->
+<div class="actions">
+  <a href="#" class="dislike"><i></i></a>
+  <a href="#" class="like"><i></i></a>
+</div>
+
+<!-- jTinder status text  -->
+<div id="status"></div>
+</body>
+
+<script type="text/javascript">
+    $("#tinderslide").jTinder({
+
+        onDislike: function (item) {
+            //alert('Dislike image ' + (item.index()+1));
+        },
+        onLike: function (item) {
+            var myId = $("#tinderslide > ul li").last().attr("id").split('_').pop();
+            console.log("liked user" + myId);
+
+            $.ajax({
+                url: '/friendships',
+                type: 'POST',
+                data: {
+                    friendship: {friend_id: myId}
+                },
+                success: function (data) {
+                    console.log(data);
+                    console.log("success");
+                },
+            });
+
+        },
+    });
+    $('.actions .like, .actions .dislike').click(function(e){
+        e.preventDefault();
+        $("#tinderslide").jTinder($(this).attr('class'));
+    });
+</script>
+
