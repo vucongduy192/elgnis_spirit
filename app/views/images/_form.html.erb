@@ -10,17 +10,15 @@
       </ul>
     </div>
   <% end %>
-  
+  <span><h3 class="active"> タイトル </h3></span>
   <div class="field">
-    <%= form.label :title %>
     <%= form.text_field :title, class: "textIn" %>
   </div>
   
   <div class="field">
-    <%= form.label "画像" %>
     <%= form.file_field :file %>
   </div>
-  
+  <img id="output"/>
   <div class="actions">
     <%= form.submit %>
   </div>
