@@ -3,33 +3,37 @@
 </div>
 <div style="overflow-y: scroll; height:500px;">
 
-<% @images.each do |image| %>
-      <div class="wrapper image-form">
-        <div id="formContent">
-          <!-- Tabs Titles -->
-          <h2 class="active"> <%= image.title %> </h2>
+  <% @images.each do |image| %>
+  <div class="wrapper image-form">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+      <h2 class="active"> <%= image.title %> </h2>
 
-          <!-- Icon -->
-          <div class="fadeIn first">
-              <%= image.file %>
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <% if image.file.present? %>
+        <%= link_to (image_tag image.file.url, class:'center-block', style:'align-content: center; width: 600px;', id: "img_prev"), image_path(image) %>
+        <% else %>
+        <%= link_to (image_tag image.link, class:'center-block', style:'align-content: center; width: 600px;', id: "img_prev"), image_path(image) %>
+        <% end %>
+      </div>
+
+      <!-- Login Form -->
+
+      <div class="post-bottom">
+        <div class="caption">
+          <div class="caption-content">
+            <%= image.created_at.to_date %>
           </div>
-
-          <!-- Login Form -->
-
-          <div class="post-bottom">
-            <div class="caption">
-              <div class="caption-content">
-                <%= image.created_at.to_date %>
-              </div>
-            </div>
-          </div>
-          <div class="comment-like-form row center-block">
-            <%= link_to '表示', image %>
-            <%= link_to '編集', edit_image_path(image) %>
-            <%= link_to '削除', image, method: :delete, data: { confirm: 'Are you sure?' } %>
-          </div>
-
         </div>
       </div>
-<% end %>
+      <div class="comment-like-form row center-block">
+        <%= link_to '表示', image %>
+        <%= link_to '編集', edit_image_path(image) %>
+        <%= link_to '削除', image, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </div>
+
+    </div>
+  </div>
+  <% end %>
 </div>

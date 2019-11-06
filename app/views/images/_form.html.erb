@@ -10,14 +10,20 @@
       </ul>
     </div>
   <% end %>
-  <span><h3 class="active"> タイトル </h3></span>
-  <div class="field">
-    <%= form.text_field :title, class: "textIn" %>
+
+  <div class="row">
+    <div class="col-md-4">
+      <%= image_tag "blank-img.jpg", class:'center-block', style:'align-content: center; width: 400px;', id: "img_prev" %>
+      <%= form.file_field :file, id: "file-upload" %>
+      <%= form.hidden_field :file_cache %>
+    </div>
+    <div class="col-md-8">
+      <span><h3 class="active"> タイトル </h3></span>
+      <%= form.text_field :title, class: "textIn" %>
+    </div>
+
   </div>
-  
-  <div class="field">
-    <%= form.file_field :file %>
-  </div>
+
   <img id="output"/>
   <div class="actions">
     <%= form.submit %>
