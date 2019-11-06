@@ -1,0 +1,35 @@
+<div class="leading" style=" margin-top: 80px;">
+  <p class="leading-bigtext" style="font-size: 80px;"><%= current_user.name %></p>
+</div>
+<div style="overflow-y: scroll; height:500px;">
+
+<% @images.each do |image| %>
+      <div class="wrapper image-form">
+        <div id="formContent">
+          <!-- Tabs Titles -->
+          <h2 class="active"> <%= image.title %> </h2>
+
+          <!-- Icon -->
+          <div class="fadeIn first">
+              <%= image.file %>
+          </div>
+
+          <!-- Login Form -->
+
+          <div class="post-bottom">
+            <div class="caption">
+              <div class="caption-content">
+                <%= image.created_at.to_date %>
+              </div>
+            </div>
+          </div>
+          <div class="comment-like-form row center-block">
+            <%= link_to '表示', image %>
+            <%= link_to '編集', edit_image_path(image) %>
+            <%= link_to '削除', image, method: :delete, data: { confirm: 'Are you sure?' } %>
+          </div>
+
+        </div>
+      </div>
+<% end %>
+</div>

@@ -1,0 +1,22 @@
+    <div class="wrapper" style="overflow-y: scroll; height:600px;">
+      <div id="formContent2">
+        <!-- Tabs Titles -->
+        <h2 class="active"> <%=@image.created_at.to_date %></h2>
+        <div>
+              <%= @image.file %>
+        </div>
+
+        <div class="post-bottom">
+          <div class="caption">
+            <div class="caption-content">
+              <%= @image.title %>
+            </div>
+          </div>
+        </div>
+        <div class="comment-like-form row center-block">
+          <%= link_to '編集', edit_image_path(@image) %> |
+          <%= link_to '戻る', images_path %>
+        </div>
+
+      </div>
+    </div>
