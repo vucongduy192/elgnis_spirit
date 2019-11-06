@@ -30,7 +30,7 @@
 			      	</li>
 		
 					<li class="<%= if params[:action] == "edit" then "active" end %> nav-btn">
-						<%= link_to "#" do %><i class="fa fa-cog"></i> 設定 <% end %>
+						<%= link_to edit_user_registration_path do %><i class="fa fa-cog"></i> 設定 <% end %>
 					</li>
 		
 					<li class="nav-btn"><%= link_to destroy_user_session_path, method: :delete do %><i class="fa fa-cog"></i> ログアウト <% end %></li>
