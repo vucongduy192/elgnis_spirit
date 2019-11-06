@@ -10,6 +10,65 @@
   </head>
 
   <body>
-    <%= yield %>
+    <% if current_user %>
+			<nav id="myNavmenu" class="navmenu navmenu-default navmenu-fixed-left offcanvas" role="navigation">
+				<ul class="nav navmenu-nav">
+					<li class="<%= if params[:action] == "index" then "active" end %> nav-btn">
+						<%= link_to root_path do %><i class="fa fa-users"></i> 発見 <% end %>
+					</li>
+		
+					<li class="<%= if params[:action] == "matches" then "active" end %> nav-btn">
+						<%= link_to "#" do %><i class="fa fa-heart"></i> 出会う <% end %>
+					</li>
+		
+		      <li class="<%= if params[:action] == "post" then "active" end %> nav-btn">
+		        <%= link_to "#" do %><i class="fa fa-images"></i> 画像を投稿 <% end %>
+		      </li>
+		
+		      <li class="<%= if params[:action] == "post" then "active" end %> nav-btn">
+		        <%= link_to "#" do %><i class="fa fa-images"></i> 自分の画像 <% end %>
+		      </li>
+		
+					<li class="<%= if params[:action] == "edit" then "active" end %> nav-btn">
+						<%= link_to "#" do %><i class="fa fa-cog"></i> 設定 <% end %>
+					</li>
+		
+					<li class="nav-btn"><%= link_to destroy_user_session_path, method: :delete do %><i class="fa fa-cog"></i> ログアウト <% end %></li>
+		
+				</ul>
+			</nav>
+
+		<div class="navbar navbar-default navbar-fixed-top">
+
+		  <button type="button" class="navbar-toggle button-nav" data-toggle="offcanvas" data-target="#myNavmenu" data-canvas="body">
+		  	<i class="fa fa-cog"></i>
+		  </button>
+
+		  <%= link_to root_path, class: "navbar-brand" do %>
+		  	<%= image_tag "IMG_3341.PNG", alt: "Tinstuk logo", class: "logo-brand" %>
+		  <% end %>
+
+		  <button type="button" class="navbar-toggle button-nav pull-right">
+		  	<%= link_to "#" do %><i class="fa fa-heart"></i><% end %>
+		  </button>
+
+	</div>
+	
+	<% end %>
+	<%= yield %>
+
+
+	<script type="text/javascript">
+	
+		$(".spinner").hide();
+	
+		$(".nav-btn").hover(function(){
+			$(this).addClass("active2");
+			}, function(){
+			$(this).removeClass("active2");
+		});
+	
+	
+	</script>
   </body>
 </html>
