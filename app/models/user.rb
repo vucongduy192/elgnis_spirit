@@ -5,7 +5,20 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   devise :omniauthable, :omniauth_providers => [:google_oauth2]
   has_many :images
-  
+  has_many :images
+  has_many :friendships
+  has_many :messages
+  has_many :subscriptions
+  has_many :chats, through: :subscriptions
+
+  def existing_chats_users
+    existing_chat_users = []
+    self.chats.each do |chat|
+      existing_chat_users.concat(chat.subscriptions.where.not(user_id: self.id).map {|subscription| subscription.user})
+    end
+    existing_chat_users.uniq
+  end
+
   def self.from_omniauth(access_token)
     data = access_token.info
     user = User.where(:email => data["email"]).first
