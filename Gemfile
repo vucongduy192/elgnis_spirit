@@ -3,6 +3,10 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.3'
 
+gem 'devise'
+
+gem 'carrierwave'
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.3'
 # Use sqlite3 as the database for Active Record
@@ -60,3 +64,15 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem "devise"
+gem "bootstrap-sass"
+gem "bootstrap"
+gem "jquery-turbolinks"
+gem "jquery-rails"
+gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
+gem "omniauth-google-oauth2"
+gem 'font-awesome-sass', '~> 5.2.0'
+gem "figaro"
+gem 'rails_admin', '~> 2.0'
+gem 'cancancan'
+gem 'rails_admin_rollincode', '~> 1.0'

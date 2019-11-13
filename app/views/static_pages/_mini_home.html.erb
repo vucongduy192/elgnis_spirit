@@ -1,0 +1,38 @@
+
+<div class="bg-dark"></div>
+
+<div class="home-information">
+	<h1 class="slogan">さあ、恋人と巡り会いましょう！</h1>
+	
+	<%= link_to new_user_session_path, class: "btn btn-social btn-lg btn-foursquare btn-login" do %>
+		<i class="fab fa-app-store-ios"></i>ログイン
+	<% end %>
+	<br /><br />
+</div>
+
+
+
+
+<script type="text/javascript">
+
+jQuery(function($) {
+
+	$.supersized({
+		slide_interval   :   4000,
+		transition       :   1,
+		transition_speed : 700,
+		slinde_links     : 'blank',
+
+		slides           : [
+			{image : 'https://c2.staticflickr.com/8/7151/13692441885_5dbf6de450_b.jpg'},
+			{image : 'https://c1.staticflickr.com/6/5575/14976870511_153fd1c229_c.jpg'},
+			{image : 'https://c2.staticflickr.com/8/7302/8726401412_4b303c7dd2_b.jpg'},
+			{image : 'https://c1.staticflickr.com/9/8066/8166600895_728ae37599_b.jpg'}
+		]
+
+	});
+
+
+});
+
+</script>

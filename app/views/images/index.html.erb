@@ -1,0 +1,70 @@
+<style>
+  body {
+    margin: 0px;
+    padding: 0px;
+  }
+  .leading {
+    margin-top: 60px;
+    height: 150px;
+    margin-bottom: 30px;
+    background: url(https://cdn.glitch.com/a5121e34-96b3-4a70-8227-040c51e64fae%2Fcat.jpg?1509635989509) center #333 no-repeat;
+    background-size: cover;
+    text-shadow: 0px 0px 5px #000;
+  }
+  .leading-bigtext, .leading-text{
+    color: white;
+    display: inline-block;
+    margin-top: 50px;
+  }
+  .leading-bigtext {
+    margin-right: 60px;
+    font-weight: bold;
+    font-size: 24vw;
+  }
+  .leading-text {
+    max-width: 900px;
+    font-size: 1.2em;
+    line-height: 1.4em;
+  }
+</style>
+
+<div class="leading">
+  <p class="leading-bigtext" style="font-size: 80px;"><%= current_user.name %></p>
+  <p class="leading-text">愛することによって失うものは何もない。しかし、愛することを怖がっていたら、何も得られない。</p>
+</div>
+<div style="overflow-y: scroll; height:500px;">
+
+<% @images.each do |image| %>
+  <div class="wrapper image-form">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+      <h2 class="active"> <%= image.title %> </h2>
+
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <% if image.file.present? %>
+        <%= link_to (image_tag image.file.url, class:'center-block', style:'align-content: center; width: 600px;', id: "img_prev"), image_path(image) %>
+        <% else %>
+        <%= link_to (image_tag image.link, class:'center-block', style:'align-content: center; width: 600px;', id: "img_prev"), image_path(image) %>
+        <% end %>
+      </div>
+
+      <!-- Login Form -->
+
+      <div class="post-bottom">
+        <div class="caption">
+          <div class="caption-content">
+            <%= image.created_at.to_date %>
+          </div>
+        </div>
+      </div>
+      <div class="comment-like-form row center-block">
+        <%= link_to '表示', image %>
+        <%= link_to '編集', edit_image_path(image) %>
+        <%= link_to '削除', image, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </div>
+
+    </div>
+  </div>
+  <% end %>
+</div>

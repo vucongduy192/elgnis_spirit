@@ -1,0 +1,26 @@
+<div class="wrapper" style="overflow-y: scroll; height:600px;">
+  <div id="formContent2">
+    <!-- Tabs Titles -->
+    <h2 class="active"> <%=@image.created_at.to_date %></h2>
+    <div class="fadeIn first">
+      <% if @image.file.present?%>
+      <%= link_to (image_tag @image.file.url, class:'center-block', style:'align-content: center; width: 700px;', id: "img_prev"), image_path(@image) %>
+      <% else %>
+      <%= link_to (image_tag @image.link, class:'center-block', style:'align-content: center; width: 700px;', id: "img_prev"), image_path(@image) %>
+      <% end %>
+    </div>
+
+    <div class="post-bottom">
+      <div class="caption">
+        <div class="caption-content">
+          <%= @image.title %>
+        </div>
+      </div>
+    </div>
+    <div class="comment-like-form row center-block">
+      <%= link_to '編集', edit_image_path(@image) %> |
+      <%= link_to '戻る', images_path %>
+    </div>
+
+  </div>
+</div>

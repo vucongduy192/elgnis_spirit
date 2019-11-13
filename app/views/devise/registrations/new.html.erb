@@ -1,0 +1,55 @@
+<section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <div class="signup-form">
+                        <h2 class="form-title">サインアップ</h2>
+                        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+                        <%= devise_error_messages! %>
+                            <div class="form-group">
+                                <i class="zmdi zmdi-account material-icons-name"></i>
+                                <%= f.text_field :name, autofocus: true, placeholder: "ニックネーム" %>
+                            </div>
+                            <div class="form-group">
+                                <i class="zmdi zmdi-account material-icons-age"></i>
+                                <%= f.number_field :age, placeholder: "年齢" %>
+                            </div>
+                            <div class="form-group">
+                                <i class="zmdi zmdi-email"></i>
+                                <%= f.email_field :email, placeholder: "メールアドレス" %>
+                            </div>
+                            <div class="form-group">
+                                <i class="zmdi zmdi-lock"></i>
+                                <% if @minimum_password_length %>
+                                    <em>(<%= @minimum_password_length %> 文字以上)</em>
+                                <% end %><br />
+                                <%= f.password_field :password, autocomplete: "off" %>
+                            </div>
+                            <div class="form-group">
+                                <i class="zmdi zmdi-lock"></i>
+                                <% if @minimum_password_length %>
+                                    <em>(パスワード確認)</em>
+                                <% end %><br />
+                                <%= f.password_field :password_confirmation, autocomplete: "off" %>
+                            </div>
+                            <!--<div class="form-group">-->
+                            <!--    <i class="zmdi zmdi-lock-outline"></i>-->
+                            <!--    <input type="password" name="re_pass" id="re_pass" placeholder="Repeat your password"/>-->
+                            <!--</div>-->
+                            <!--<div class="form-group">
+                                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                                <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
+                            </div>-->
+                            <div class="form-group form-button">
+                                <%= f.submit "サインアップ", class: "form-submit" %>
+                            </div>
+                       <% end %>
+                    </div>
+                    <div class="signup-image">
+                        <figure><%= image_tag("signup-image.jpg", alt: "sing up image") %></figure>
+                        <%= link_to new_user_session_path, class: "signup-image-link" do %>
+                    		ログイン
+                    	<% end %>
+                    </div>
+                </div>
+            </div>
+        </section>

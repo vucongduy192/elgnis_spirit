@@ -10,6 +10,68 @@
   </head>
 
   <body>
-    <%= yield %>
+  	<% flash.each do |message_type, message| %>
+      <%= hidden_field_tag "", message, class: "flash_msg #{message_type}" %>
+    <% end %>
+    <% if current_user %>
+			<nav id="myNavmenu" class="navmenu navmenu-default navmenu-fixed-left offcanvas" role="navigation">
+				<ul class="nav navmenu-nav">
+					<li class="<%= if params[:action] == "index" then "active" end %> nav-btn">
+						<%= link_to root_path do %><i class="fa fa-users"></i> 発見 <% end %>
+					</li>
+		
+					<li class="<%= if params[:action] == "matches" then "active" end %> nav-btn">
+						<%= link_to chats_path(current_user) do %><i class="fa fa-heart"></i> 出会い <% end %>
+					</li>
+		
+			      	<li class="<%= if params[:action] == "post" then "active" end %> nav-btn">
+			        	<%= link_to new_image_path do %><i class="fa fa-images"></i> 画像を投稿 <% end %>
+			      	</li>
+			
+			      	<li class="<%= if params[:action] == "post" then "active" end %> nav-btn">
+			        	<%= link_to images_path do %><i class="fa fa-images"></i> 自分の画像 <% end %>
+			      	</li>
+		
+					<li class="<%= if params[:action] == "edit" then "active" end %> nav-btn">
+						<%= link_to edit_user_registration_path do %><i class="fa fa-cog"></i> 設定 <% end %>
+					</li>
+		
+					<li class="nav-btn"><%= link_to destroy_user_session_path, method: :delete do %><i class="fa fa-cog"></i> ログアウト <% end %></li>
+		
+				</ul>
+			</nav>
+
+		<div class="navbar navbar-default navbar-fixed-top">
+
+		  <button type="button" class="navbar-toggle button-nav" data-toggle="offcanvas" data-target="#myNavmenu" data-canvas="body">
+		  	<i class="fa fa-cog"></i>
+		  </button>
+
+		  <%= link_to root_path, class: "navbar-brand" do %>
+		  	<%= image_tag "logo_elgnis", alt: "Tinstuk logo", class: "logo-brand" %>
+		  <% end %>
+
+		  <button type="button" class="navbar-toggle button-nav pull-right">
+		  	<%= link_to "#" do %><i class="fa fa-heart"></i><% end %>
+		  </button>
+
+	</div>
+	
+	<% end %>
+	<%= yield %>
+
+
+	<script type="text/javascript">
+	
+		$(".spinner").hide();
+	
+		$(".nav-btn").hover(function(){
+			$(this).addClass("active2");
+			}, function(){
+			$(this).removeClass("active2");
+		});
+	
+	
+	</script>
   </body>
 </html>
