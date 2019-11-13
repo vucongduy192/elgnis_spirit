@@ -10,6 +10,9 @@
   </head>
 
   <body>
+  	<% flash.each do |message_type, message| %>
+      <%= hidden_field_tag "", message, class: "flash_msg #{message_type}" %>
+    <% end %>
     <% if current_user %>
 			<nav id="myNavmenu" class="navmenu navmenu-default navmenu-fixed-left offcanvas" role="navigation">
 				<ul class="nav navmenu-nav">
