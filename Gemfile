@@ -73,3 +73,6 @@ gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'mast
 gem "omniauth-google-oauth2"
 gem 'font-awesome-sass', '~> 5.2.0'
 gem "figaro"
+gem 'rails_admin', '~> 2.0'
+gem 'cancancan'
+gem 'rails_admin_rollincode', '~> 1.0'
