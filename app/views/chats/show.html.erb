@@ -2,12 +2,8 @@
   <div class="chat-title">
     <h1 style="color: #F05408;"><%= @other_user.name %></h1>
     <h2>Have a nice day!</h2>
-    <figure class="avatar">
-      <% if @avatar.file.present?%>
-              <%= image_tag @avatar.file %>
-          <% else %>
-              <%= image_tag @avatar.link %>
-          <% end %>
+<figure class="avatar">
+
     </figure>
   </div>
 <div class="scroll" style="overflow: scroll;">
@@ -25,7 +21,7 @@
 </div>
 </div>
 
-<p><%= link_to "Back to list of chats", chat_path(current_user.id) %></p>
+<p><%= link_to "Back to list of chats", user_chats_path(current_user.id) %></p>
 
 <script>
     createMessageChannel();

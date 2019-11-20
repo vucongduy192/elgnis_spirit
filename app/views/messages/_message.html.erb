@@ -1,0 +1,15 @@
+<% if message.user == current_user %>
+    <div class="message">
+        <figure class="avatar">
+
+        </figure>
+        <p style="color: #F05408;"><%= message.user.name %>: <span style="color: white"><%=message.content%></span></p>
+    </div>
+<% else %>
+    <div class="message">
+        <figure class="avatar">
+
+        </figure>
+        <p style="color: #F05408;"><%= message.user.name %>: <span style="color: white"><%=message.content%></span></p>
+    </div>
+<% end %>

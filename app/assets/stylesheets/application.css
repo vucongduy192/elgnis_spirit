@@ -3,6 +3,7 @@
  *= require_tree ../../../vendor/assets/stylesheets/fonts
  *= require_tree ../../../vendor/assets/stylesheets/static_css
  *= require custom
+ *= require chats
  *= require static
  *= require variables
  *= require styles
