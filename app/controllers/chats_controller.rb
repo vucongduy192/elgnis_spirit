@@ -17,7 +17,7 @@ class ChatsController < ApplicationController
       @chat.subscriptions.create(user_id: current_user.id)
       @chat.subscriptions.create(user_id: @other_user.id)
     end
-    redirect_to chats_path(current_user, @chat,  :other_user => @other_user.id)
+    redirect_to user_chat_path(current_user, @chat,  :other_user => @other_user.id)
   end
 
 

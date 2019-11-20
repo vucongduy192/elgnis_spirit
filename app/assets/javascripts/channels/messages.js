@@ -5,10 +5,15 @@ function createMessageChannel() {
         {
             received: function(data) {
                 $("#messages").removeClass('hidden')
-                return $('#messages').append(this.renderMessage(data));
+                $('#messages').append(this.renderMessage(data));
+                $(".scroll").scrollTop($(".scroll")[0].scrollHeight);
             },
             renderMessage: function(data) {
-                return "<p> <b style='color: #00ffab'>" + data.user + ": </b>" + data.message + "</p>";
+                if(data.image_link) {
+                    return "<div class='message'><figure class='avatar'><img scr='"+ data.image_link +"'></figure><p style='color: #F05408;'>"+ data.user +" :<span style='color: white'>"+ data.message +"</span></p>";
+                } else {
+                    return "<div class='message'><figure class='avatar'><img scr='"+ data.image_file +"'></figure><p style='color: #F05408;'>"+ data.user +" :<span style='color: white'>"+ data.message +"</span></p>";
+                }
             },
         });
     return App.messages;

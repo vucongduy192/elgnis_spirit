@@ -19,45 +19,45 @@
 					<li class="<%= if params[:action] == "index" then "active" end %> nav-btn">
 						<%= link_to root_path do %><i class="fa fa-users"></i> 発見 <% end %>
 					</li>
-		
+
 					<li class="<%= if params[:action] == "matches" then "active" end %> nav-btn">
-						<%= link_to chats_path(current_user) do %><i class="fa fa-heart"></i> 出会い <% end %>
+						<%= link_to user_chats_path(current_user) do %><i class="fa fa-heart"></i> 出会い <% end %>
 					</li>
-		
+
 			      	<li class="<%= if params[:action] == "post" then "active" end %> nav-btn">
 			        	<%= link_to new_image_path do %><i class="fa fa-images"></i> 画像を投稿 <% end %>
 			      	</li>
-			
+
 			      	<li class="<%= if params[:action] == "post" then "active" end %> nav-btn">
 			        	<%= link_to images_path do %><i class="fa fa-images"></i> 自分の画像 <% end %>
 			      	</li>
-		
+
 					<li class="<%= if params[:action] == "edit" then "active" end %> nav-btn">
 						<%= link_to edit_user_registration_path do %><i class="fa fa-cog"></i> 設定 <% end %>
 					</li>
-		
+
 					<li class="nav-btn"><%= link_to destroy_user_session_path, method: :delete do %><i class="fa fa-cog"></i> ログアウト <% end %></li>
-		
+
 				</ul>
 			</nav>
-			
+
 			<nav id="myNavmenu2" class="navmenu navmenu-default navmenu-fixed-right offcanvas" role="navigation">
 				<ul class="nav navmenu-nav">
 					<p style="font-size: 24px; color: white;">
 						～～友達～～
 					</p>
-					<% if @existing_chats_users %>
+					<% if @existing_chats_users.present? %>
 		        <% @existing_chats_users.each do |other_user| %>
 		            <% if other_user != current_user %>
 		                <li style="font-size: 20px">
-		                  <%= link_to(chats_path(current_user, :other_user => other_user.id), method: :post) do %>
+		                  <%= link_to(user_chats_path(current_user, :other_user => other_user.id), method: :post) do %>
 		                      <%= other_user.name %>
 		                  <% end %>
 		                </li>
 		            <% end %>
 		        <% end %>
     <% end %>
-		
+
 				</ul>
 			</nav>
 		<div class="navbar navbar-default navbar-fixed-top">
@@ -75,22 +75,22 @@
 		  </button>
 
 	</div>
-	
+
 	<% end %>
 	<%= yield %>
 
 
 	<script type="text/javascript">
-	
+
 		$(".spinner").hide();
-	
+
 		$(".nav-btn").hover(function(){
 			$(this).addClass("active2");
 			}, function(){
 			$(this).removeClass("active2");
 		});
-	
-	
+
+
 	</script>
   </body>
 </html>
