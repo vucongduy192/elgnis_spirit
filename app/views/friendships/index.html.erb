@@ -18,7 +18,7 @@
             <% if image.file.present?%>
                 <img src="<%= image.file %>", class:'center-block', style:'align-content: center; background-size: cover; height: 400px;'>
             <% else %>
-                まだ、イメージがない。
+                 <%= link_to (image_tag image.link, class:'center-block', style:'align-content: center; width: 600px;', id: "img_prev"), image_path(image) %>
             <% end %>
           </div>
           <div style = "color: #ff288d;">

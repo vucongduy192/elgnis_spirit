@@ -7,6 +7,85 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <style>
+		body {
+		  font-family: "Lato", sans-serif;
+		}
+		
+		.sidenav {
+		  height: 100%;
+		  width: 0;
+		  position: fixed;
+		  z-index: 1;
+		  top: 0;
+		  left: 0;
+		  background-color: #555;
+		  overflow-x: hidden;
+		  transition: 0.5s;
+		  padding-top: 60px;
+		}
+		
+		.sidenav ul li {
+		  padding: 8px 8px 8px 8px;
+		  text-decoration: none;
+		  font-size: 15px;
+		  color: #818181;
+		  display: block;
+		  transition: 0.3s;
+		}
+		
+		.sidenav ul li:hover {
+		  color: #f1f1f1;
+		}
+		
+		.sidenav .closebtn {
+		  position: absolute;
+		  top: 0;
+		  right: 25px;
+		  font-size: 36px;
+		  margin-left: 50px;
+		}
+		
+		@media screen and (max-height: 450px) {
+		  .sidenav {padding-top: 15px;}
+		  .sidenav ul li {font-size: 10px;}
+		}
+		
+		.sidenav2 {
+		  height: 100%;
+		  width: 0;
+		  position: fixed;
+		  z-index: 1;
+		  top: 0;
+		  right: 0;
+		  background-color: #555;
+		  overflow-x: hidden;
+		  padding-top: 60px;
+		  transition: 0.5s;
+		}
+		
+		.sidenav2 ul li {
+		  padding: 8px 8px 8px 32px;
+		  text-decoration: none;
+		  font-size: 25px;
+		  color: #818181;
+		  display: block;
+		  transition: 0.3s
+		}
+		
+		.sidenav2 ul li:hover {
+		  color: #f1f1f1;
+		}
+		
+		.sidenav2 .closebtn2 {
+		  position: absolute;
+		  top: 0;
+		  right: 25px;
+		  font-size: 36px;
+		  margin-left: 50px;
+		}
+		
+	</style>
   </head>
 
   <body>
@@ -14,7 +93,7 @@
       <%= hidden_field_tag "", message, class: "flash_msg #{message_type}" %>
     <% end %>
     <% if current_user %>
-			<nav id="myNavmenu" class="navmenu navmenu-default navmenu-fixed-left offcanvas" role="navigation">
+			<nav id="mySidenav" class="sidenav" role="navigation">
 				<ul class="nav navmenu-nav">
 					<li class="<%= if params[:action] == "index" then "active" end %> nav-btn">
 						<%= link_to root_path do %><i class="fa fa-users"></i> 発見 <% end %>
@@ -29,7 +108,7 @@
 			      	</li>
 
 			      	<li class="<%= if params[:action] == "post" then "active" end %> nav-btn">
-			        	<%= link_to images_path do %><i class="fa fa-images"></i> 自分の画像 <% end %>
+			        	<%= link_to images_path do %><i class="fa fa-images"></i> マイページ <% end %>
 			      	</li>
 
 					<li class="<%= if params[:action] == "edit" then "active" end %> nav-btn">
@@ -41,15 +120,15 @@
 				</ul>
 			</nav>
 
-			<nav id="myNavmenu2" class="navmenu navmenu-default navmenu-fixed-right offcanvas" role="navigation">
+			<nav id="mySidenav2" class="sidenav2" role="navigation">
 				<ul class="nav navmenu-nav">
 					<p style="font-size: 24px; color: white;">
 						～～友達～～
 					</p>
-					<% if @existing_chats_users.present? %>
-		        <% @existing_chats_users.each do |other_user| %>
+					<% if current_user.existing_chats_users.present? %>
+		        <% current_user.existing_chats_users.each do |other_user| %>
 		            <% if other_user != current_user %>
-		                <li style="font-size: 20px">
+		                <li class="<%= if params[:action] == "index" then "active" end %> nav-btn" style="font-size: 20px">
 		                  <%= link_to(user_chats_path(current_user, :other_user => other_user.id), method: :post) do %>
 		                      <%= other_user.name %>
 		                  <% end %>
@@ -60,9 +139,9 @@
 
 				</ul>
 			</nav>
-		<div class="navbar navbar-default navbar-fixed-top">
+		<div class="navbar navbar-fixed-top">
 
-		  <button type="button" class="navbar-toggle button-nav" data-toggle="offcanvas" data-target="#myNavmenu" data-canvas="body">
+		  <button type="button" id="btn1" class="navbar-toggle button-nav pull-left" onclick="openNav()" >
 		  	<i class="fa fa-cog"></i>
 		  </button>
 
@@ -70,7 +149,7 @@
 		  	<%= image_tag "logo_elgnis", alt: "Tinstuk logo", class: "logo-brand" %>
 		  <% end %>
 
-		  <button type="button" class="navbar-toggle button-nav pull-right" data-toggle="offcanvas" data-target="#myNavmenu2" data-canvas="body">
+		  <button type="button" id="btn2" class="navbar-toggle button-nav pull-right" onclick="openNav2()">
 		  	<i class="fa fa-heart"></i>
 		  </button>
 
@@ -89,7 +168,26 @@
 			}, function(){
 			$(this).removeClass("active2");
 		});
+		
+		function openNav() {
+  			document.getElementById("mySidenav").style.width = "180px";
+  			document.getElementById("btn1").onclick = function(){closeNav();};
+		}
 
+		function closeNav() {
+  			document.getElementById("mySidenav").style.width = "0px";
+  			document.getElementById("btn1").onclick = function(){openNav();};
+		}
+		
+		function openNav2() {
+  			document.getElementById("mySidenav2").style.width = "180px";
+  			document.getElementById("btn2").onclick = function(){closeNav2();};
+		}
+
+		function closeNav2() {
+  			document.getElementById("mySidenav2").style.width = "0px";
+  			document.getElementById("btn2").onclick = function(){openNav2();};
+		}
 
 	</script>
   </body>
