@@ -2,22 +2,20 @@
   <div class="chat-title">
     <h1 style="color: #F05408;"><%= @other_user.name %></h1>
   </div>
-<div class="scroll" style="overflow: scroll;">
-  <% if @chat.messages.any? %>
-      <div class="messages" id="messages" style="font-size: 16px; margin-left: 20px; margin-right:20px;">
-        <%= render partial: 'messages/message', collection: @chat.messages.order(id: :asc), locals: {current_user: current_user}%>
-      </div>
-  <%else%>
-      <div id="messages">
-      </div>
-  <%end%>
+  <div class="scroll" style="overflow: scroll;">
+    <% if @chat.messages.any? %>
+        <div class="messages" id="messages" style="font-size: 16px; margin-left: 20px; margin-right:20px;">
+          <%= render partial: 'messages/message', collection: @chat.messages.order(id: :asc), locals: {current_user: current_user}%>
+        </div>
+    <%else%>
+        <div id="messages">
+        </div>
+    <%end%>
+  </div>
+  <div class="message-box">
+    <%= render partial: 'messages/message_form', locals: {message: @message, chat: @chat}%>
+  </div>
 </div>
-<div class="message-box">
-  <%= render partial: 'messages/message_form', locals: {message: @message, chat: @chat}%>
-</div>
-</div>
-
-<p><%= link_to "Back to list of chats", user_chats_path(current_user.id) %></p>
 
 <script>
     createMessageChannel();
