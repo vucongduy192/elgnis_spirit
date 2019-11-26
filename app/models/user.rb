@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  mount_uploader :avatar, AvatarUploader
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   devise :omniauthable, :omniauth_providers => [:google_oauth2]
@@ -11,6 +11,8 @@ class User < ApplicationRecord
   has_many :subscriptions
   has_many :chats, through: :subscriptions
 
+
+  mount_uploader :avatar, AvatarUploader
   def existing_chats_users
     existing_chat_users = []
     self.chats.each do |chat|
@@ -31,8 +33,8 @@ class User < ApplicationRecord
     end
     user
   end
-  
-  validates_presence_of   :avatar
-  validates_integrity_of  :avatar
-  validates_processing_of :avatar
+
+  # validates_presence_of   :avatar
+  # validates_integrity_of  :avatar
+  # validates_processing_of :avatar
 end

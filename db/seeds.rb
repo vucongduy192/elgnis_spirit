@@ -1,6 +1,6 @@
-User.create(name: "admin test", email: "admin@gmail.com", password: "admin@123",role: "admin")
+User.create(name: "admin test", email: "admin@gmail.com", password: "admin@123", role: "admin", avatar: "https://png.pngtree.com/png-clipart/20190611/original/pngtree-beautiful-flower-png-image_3233188.jpg")
 
-User.create(name:"user test", email: "user@gmail.com", password: "user@123",role: "member")
+User.create(name:"user test", email: "user@gmail.com", password: "user@123", role: "member", avatar: "https://png.pngtree.com/png-clipart/20190611/original/pngtree-beautiful-flower-png-image_3233188.jpg")
 
 3.times do |n|
     User.create!([
@@ -8,7 +8,8 @@ User.create(name:"user test", email: "user@gmail.com", password: "user@123",role
     		email: "user#{n+1}@gmail.com",
     		name: Faker::Name.unique.name,
     		password: "user@123",
-    		role: "member"
+    		role: "member",
+            avatar: "https://png.pngtree.com/png-clipart/20190611/original/pngtree-beautiful-flower-png-image_3233188.jpg"
     	}
     ])
 end
