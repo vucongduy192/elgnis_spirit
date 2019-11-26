@@ -9,11 +9,13 @@ function createMessageChannel() {
                 $(".scroll").scrollTop($(".scroll")[0].scrollHeight);
             },
             renderMessage: function(data) {
-                if(data.image_link) {
-                    return "<div class='message'><figure class='avatar'><img scr='"+ data.image_link +"'></figure><p style='color: #F05408;'>"+ data.user +" :<span style='color: white'>"+ data.message +"</span></p>";
-                } else {
-                    return "<div class='message'><figure class='avatar'><img scr='"+ data.image_file +"'></figure><p style='color: #F05408;'>"+ data.user +" :<span style='color: white'>"+ data.message +"</span></p>";
-                }
+
+                    return "<div class='outgoing_msg'>"+
+"        <div class='sent_msg'>"+
+"            <p>"+data.message+"</p>"+
+"            <span class='time_date'></span>"+
+"        </div>"+
+"    </div>";
             },
         });
     return App.messages;
