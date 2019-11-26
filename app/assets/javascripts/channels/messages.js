@@ -19,4 +19,6 @@ function createMessageChannel() {
             },
         });
     return App.messages;
+
+
 }
