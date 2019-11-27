@@ -72,8 +72,12 @@
           <%= f.password_field :current_password, autocomplete: "off", class: "textIn" %>
         </div>
         <div class="form-group">
-          <i>avatar</i><br />
-          <%= image_tag @user.avatar.url %>
+          <i>アバタ</i><br />
+          <% if @user.avatar.present?%>
+                <%= image_tag @user.avatar.url %>
+            <% else %>
+                 <%= image_tag @user.avatar_link %>
+            <% end %>
         </div>
         
         <div class="actions">
