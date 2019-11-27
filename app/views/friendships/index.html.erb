@@ -20,7 +20,7 @@
         <li class="pane<%= image.id % 5 + 1 %>" id="user_<%= image.user.id %>">
           <div class="img">
             <% if image.file.present?%>
-                <%= image_tag image.file, class:'center-block', style:'align-content: center; background-size: cover; height: 400px;'%>
+                <%= image_tag image.file.url, class:'center-block', style:'align-content: center; background-size: cover; height: 400px;'%>
             <% else %>
                 <%= image_tag image.link, class:'center-block', style:'align-content: center; background-size: cover; height: 400px;'%>
             <% end %>
