@@ -26,45 +26,75 @@
     font-size: 1.2em;
     line-height: 1.4em;
   }
+   
+    .w3-card,.w3-card-2{box-shadow:0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12)}
+    .user-info {
+        font-size: 18px;
+        color: black;
+        margin-top: 20px
+    }
 </style>
 
-<div class="leading">
-  <p class="leading-bigtext" style="font-size: 80px;"><%= current_user.name %></p>
-  <p class="leading-text">愛することによって失うものは何もない。しかし、愛することを怖がっていたら、何も得られない。</p>
-</div>
-<div style="overflow-y: scroll; height:500px;">
-
-<% @images.each do |image| %>
-  <div class="wrapper image-form">
-    <div id="formContent">
-      <!-- Tabs Titles -->
-      <h2 class="active"> <%= image.title %> </h2>
-
-      <!-- Icon -->
-      <div class="fadeIn first">
-        <% if image.file.present? %>
-        <%= link_to (image_tag image.file.url, class:'center-block', style:'align-content: center; width: 600px;', id: "img_prev"), image_path(image) %>
-        <% else %>
-        <%= link_to (image_tag image.link, class:'center-block', style:'align-content: center; width: 600px;', id: "img_prev"), image_path(image) %>
-        <% end %>
-      </div>
-
-      <!-- Login Form -->
-
-      <div class="post-bottom">
-        <div class="caption">
-          <div class="caption-content">
-            <%= image.created_at.to_date %>
-          </div>
+<div class="row" style="margin-top: 100px">
+    <div class="col-sm-1"></div>
+    <div class="col-sm-4" style="margin-top: 20px; margin-left: 45px">
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <% if current_user.avatar.present?%>
+                <%= image_tag current_user.avatar.url ,style:"height:381px;width:100%"%>
+                <% else %>
+                <%= image_tag current_user.avatar_link, style:"height:381px;width:100%"%>
+              <% end %>
+            </div>
+            <div class="panel-body">
+                <p class="user-info"><i class="fa fa-address-book"> ニックネーム </i></p>
+                 <%= current_user.name %> 
+                <p class="user-info"><i class="fa fa-address-book"> 年齢 </i></p>
+                 <%= current_user.age %> 
+                <p class="user-info"><i class="fa fa-envelope"> メールアドレス </i></p>
+                 <%= current_user.email %> 
+            </div>
         </div>
-      </div>
-      <div class="comment-like-form row center-block">
-        <%= link_to '表示', image %>
-        <%= link_to '編集', edit_image_path(image) %>
-        <%= link_to '削除', image, method: :delete, data: { confirm: 'Are you sure?' } %>
-      </div>
-
     </div>
-  </div>
-  <% end %>
+    <div class="col-sm-6">
+        <div style="overflow-y: scroll; height:650px">
+        
+            <% @images.each do |image| %>
+                <div class="wrapper image-form">
+                    <div id="formContent">
+                        <!-- Tabs Titles -->
+                        <h2 class="active"> <%= image.title %> </h2>
+                        
+                        <!-- Icon -->
+                        <div class="fadeIn first">
+                            <% if image.file.present? %>
+                            <%= link_to (image_tag image.file.url, class:'center-block', style:'align-content: center; width: 470px;', id: "img_prev"), image_path(image) %>
+                            <% else %>
+                            <%= link_to (image_tag image.link, class:'center-block', style:'align-content: center; width: 470px;', id: "img_prev"), image_path(image) %>
+                            <% end %>
+                        </div>
+                        
+                        <!-- Login Form -->
+                        
+                        <div class="post-bottom">
+                            <div class="caption">
+                              <div class="caption-content">
+                                <%= image.created_at.to_date %>
+                              </div>
+                            </div>
+                        </div>
+                        <div 
+                            class="comment-like-form row center-block" 
+                            style="padding: 20px 20px 20px 20px"
+                        >
+                            <%= link_to '表示', image, class: "btn btn-success fa fa-eye"%>
+                            <%= link_to '編集', edit_image_path(image), class: "btn btn-warning fa fa-edit"  %>
+                            <%= link_to '削除', image, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger fa fa-trash"  %>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    </div>
+    <div class="col-sm-1"></div>
 </div>

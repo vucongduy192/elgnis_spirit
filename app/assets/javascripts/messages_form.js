@@ -17,4 +17,5 @@ function messageForm(){
     $(document).keyup(function (e) {
         if(e.keyCode == 16) shiftDown = false;
     });
+
 }

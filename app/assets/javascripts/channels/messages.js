@@ -5,11 +5,20 @@ function createMessageChannel() {
         {
             received: function(data) {
                 $("#messages").removeClass('hidden')
-                return $('#messages').append(this.renderMessage(data));
+                $('#messages').append(this.renderMessage(data));
+                $(".scroll").scrollTop($(".scroll")[0].scrollHeight);
             },
             renderMessage: function(data) {
-                return "<p> <b style='color: #00ffab'>" + data.user + ": </b>" + data.message + "</p>";
+
+                    return "<div class='outgoing_msg'>"+
+"        <div class='sent_msg'>"+
+"            <p>"+data.message+"</p>"+
+"            <span class='time_date'></span>"+
+"        </div>"+
+"    </div>";
             },
         });
     return App.messages;
+
+
 }

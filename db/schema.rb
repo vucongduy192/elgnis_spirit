@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_13_143700) do
+ActiveRecord::Schema.define(version: 2019_11_26_163402) do
 
   create_table "chats", force: :cascade do |t|
     t.string "identifier"
@@ -64,6 +64,8 @@ ActiveRecord::Schema.define(version: 2019_11_13_143700) do
     t.string "provider"
     t.string "uid"
     t.string "role"
+    t.string "avatar"
+    t.string "avatar_link"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["name"], name: "index_users_on_name", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

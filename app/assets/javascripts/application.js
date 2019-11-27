@@ -9,7 +9,7 @@
 //= require tinysort
 //= require jquery.tinysort
 //= require sweetalert.min
-//= require rails-ujs
 //= require activestorage
 //= require turbolinks
+//= require_tree ./channels
 //= require_tree .

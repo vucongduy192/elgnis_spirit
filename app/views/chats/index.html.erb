@@ -9,15 +9,16 @@
 <div style="margin-left: 5%;">
   <div style="">
     <p style="font-size: 34px">
-      Some friend are missing you!
+      チャットしましょう!
     </p>
   </div>
   <ul>
-    <% if @existing_chats_users %>
+    <% if @existing_chats_users.present? %>
+
         <% @existing_chats_users.each do |other_user| %>
             <% if other_user != current_user %>
                 <li style="font-size: 20px">
-                  <%= link_to(chats_path(current_user, :other_user => other_user.id), method: :post) do %>
+                  <%= link_to(user_chats_path(current_user, :other_user => other_user.id), method: :post) do %>
                       <%= other_user.name %>
                   <% end %>
                 </li>
@@ -26,14 +27,14 @@
     <% end %>
   </ul>
   <p style="font-size: 34px; margin-top: 30px;">
-    Let's say hello with new friend!
+    新しい友達とあいさつしましょう。
   </p>
   <ul>
     <% if @available_user %>
       <% @available_user.all.each do |other_user| %>
           <% if other_user.user_id != current_user and @existing_user_id.exclude?(other_user.friend_id) %>
               <li style="font-size: 20px">
-                <%= link_to(chats_path(current_user, :other_user => other_user.friend_id), method: :post) do %>
+                <%= link_to(user_chats_path(current_user, :other_user => other_user.friend_id), method: :post) do %>
                     <%= User.find_by(id:other_user.friend_id).name %>
                 <% end %>
               </li>

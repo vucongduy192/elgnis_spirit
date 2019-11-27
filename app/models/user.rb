@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   devise :omniauthable, :omniauth_providers => [:google_oauth2]
@@ -10,6 +11,8 @@ class User < ApplicationRecord
   has_many :subscriptions
   has_many :chats, through: :subscriptions
 
+
+  mount_uploader :avatar, AvatarUploader
   def existing_chats_users
     existing_chat_users = []
     self.chats.each do |chat|
@@ -21,7 +24,7 @@ class User < ApplicationRecord
   def self.from_omniauth(access_token)
     data = access_token.info
     user = User.where(:email => data["email"]).first
-  
+
     unless user
       password = Devise.friendly_token[0,20]
       user = User.create(name: data["name"], email: data["email"],
@@ -30,4 +33,5 @@ class User < ApplicationRecord
     end
     user
   end
+  
 end
