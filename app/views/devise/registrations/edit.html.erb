@@ -42,10 +42,14 @@
             </div>-->
           <div class="col-sm-6">
             <div class="form-group" style="margin-left: 30px">
-              <%= image_tag @user.avatar.url,
-               style: "width: 100%; height: 250px",
-               class: "img-thumbnail"
-              %>
+              <i>アバタ</i><br />
+              <% if @user.avatar.present?%>
+                <%= image_tag @user.avatar.url ,style: "width: 100%; height: 250px",
+               class: "img-thumbnail"%>
+              <% else %>
+                 <%= image_tag @user.avatar_link, style: "width: 100%; height: 250px",
+               class: "img-thumbnail"%>
+              <% end %>
             </div>
           </div>
           <div class="col-sm-6">
@@ -80,14 +84,6 @@
             <div class="field" style="margin-left: 30px; margin-right: -50px">
               <i>(現在のパスワードを入力してください。)</i><br />
               <%= f.password_field :current_password, autocomplete: "off", class: "textIn" %>
-            </div>
-            <div class="form-group">
-              <i>アバタ</i><br />
-              <% if @user.avatar.present?%>
-                <%= image_tag @user.avatar.url %>
-              <% else %>
-                 <%= image_tag @user.avatar_link %>
-              <% end %>
             </div>
             
             <div class="actions">
