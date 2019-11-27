@@ -13,7 +13,13 @@
 
   <div class="row">
     <div class="col-md-4">
-      <%= image_tag "blank-img.jpg", class:'center-block', style:'align-content: center; width: 400px;', id: "img_prev" %>
+      <% if image.file.present?%>
+        <%= image_tag image.file.url, class:'center-block', style:'align-content: center; width: 400px;', id: "img_prev" %>
+      <% elsif  image.link.present?%>
+        <%= image_tag image.link, class:'center-block', style:'align-content: center; width: 400px;', id: "img_prev" %>
+      <% else %>
+        <%= image_tag "blank-img.jpg", class:'center-block', style:'align-content: center; width: 400px;', id: "img_prev" %>
+      <% end %>
       <%= form.file_field :file, id: "file-upload" %>
       <%= form.hidden_field :file_cache %>
     </div>
