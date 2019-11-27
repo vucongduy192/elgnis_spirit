@@ -2,14 +2,14 @@
 <!-- start padding container -->
 <style>
     .actions a.dislike i {
-        background: url(/assets/btnx.png) no-repeat scroll center center;
-        background-size: 80px 40px;
-        background-position-y: 10px;
+        background: url(/assets/x.png) no-repeat scroll center center;
+        background-size: 180px 60px;
+        background-position-y: 5px;
     }
     .actions a.like i {
-        background: url(/assets/btno.png) no-repeat scroll center center;
-        background-size: 70px 40px;
-        background-position-y: 10px;
+        background: url(/assets/o.png) no-repeat scroll center center;
+        background-size: 35px 35px;
+        background-position-y: 11px;
     }
 </style>
 <div class="wrap">
@@ -20,9 +20,9 @@
         <li class="pane<%= image.id % 5 + 1 %>" id="user_<%= image.user.id %>">
           <div class="img">
             <% if image.file.present?%>
-                <img src="<%= image.file %>", class:'center-block', style:'align-content: center; background-size: cover; height: 400px;'>
+                <%= image_tag image.file, class:'center-block', style:'align-content: center; background-size: cover; height: 400px;'%>
             <% else %>
-                 <%= link_to (image_tag image.link, class:'center-block', style:'align-content: center; width: 600px;', id: "img_prev"), image_path(image) %>
+                 <%= image_tag image.link, class:'center-block', style:'align-content: center; background-size: cover; height: 400px;'%>
             <% end %>
           </div>
           <div style = "color: #ff288d;">
