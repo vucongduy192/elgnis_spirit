@@ -1,18 +1,35 @@
-User.create(name: "admin test", email: "admin@gmail.com", password: "admin@123", role: "admin",avatar_link: "http://data.kenhsinhvien.net/hinhanh/2013/01/21/trao-luu-avatar-nghieng-dau-tran-ngap-facebook-700488-1568.jpg")
+admin = User.new(name: "admin test", email: "admin@gmail.com", password: "admin@123", role: "admin",avatar_link: "http://data.kenhsinhvien.net/hinhanh/2013/01/21/trao-luu-avatar-nghieng-dau-tran-ngap-facebook-700488-1568.jpg")
+admin.skip_confirmation!
+admin.save!
 
-User.create(name:"user test", email: "user@gmail.com", password: "user@123", role: "member",avatar_link: "http://data.kenhsinhvien.net/hinhanh/2013/01/21/trao-luu-avatar-nghieng-dau-tran-ngap-facebook-700488-1568.jpg")
+user1 = User.new(name: "user test", email: "user@gmail.com", password: "user@123", role: "member",avatar_link: "http://data.kenhsinhvien.net/hinhanh/2013/01/21/trao-luu-avatar-nghieng-dau-tran-ngap-facebook-700488-1568.jpg")
+user1.skip_confirmation!
+user1.save!
 
-3.times do |n|
-    User.create!([
-	    {
-    		email: "user#{n+1}@gmail.com",
-    		name: Faker::Name.unique.name,
-    		password: "user@123",
-    		role: "member",
-    		avatar_link: "https://2.bp.blogspot.com/-d6NXFXNJ4Fk/WYMk9vIgj8I/AAAAAAAApRw/oOBYL6DF5Ww8UPrmkHgDmmKM2CRuVKmiwCLcBGAs/s1600/3_7_1345792436_77_1345790788-nguoi-yeu-cu-1.jpg"
-    	}
-    ])
-end
+user2 = User.new(name: "user test 1", email: "user1@gmail.com", password: "user@123", role: "member",avatar_link: "https://2.bp.blogspot.com/-d6NXFXNJ4Fk/WYMk9vIgj8I/AAAAAAAApRw/oOBYL6DF5Ww8UPrmkHgDmmKM2CRuVKmiwCLcBGAs/s1600/3_7_1345792436_77_1345790788-nguoi-yeu-cu-1.jpg")
+user2.skip_confirmation!
+user2.save!
+
+user3 = User.new(name: "user test 2", email: "user2@gmail.com", password: "user@123", role: "member",avatar_link: "http://data.kenhsinhvien.net/hinhanh/2013/01/21/trao-luu-avatar-nghieng-dau-tran-ngap-facebook-700488-1568.jpg")
+user3.skip_confirmation!
+user3.save!
+
+user4 = User.new(name: "user test 3", email: "user3@gmail.com", password: "user@123", role: "member",avatar_link: "https://2.bp.blogspot.com/-d6NXFXNJ4Fk/WYMk9vIgj8I/AAAAAAAApRw/oOBYL6DF5Ww8UPrmkHgDmmKM2CRuVKmiwCLcBGAs/s1600/3_7_1345792436_77_1345790788-nguoi-yeu-cu-1.jpg")
+user4.skip_confirmation!
+user4.save!
+# User.create(name:"user test", email: "user@gmail.com", password: "user@123", role: "member",avatar_link: "http://data.kenhsinhvien.net/hinhanh/2013/01/21/trao-luu-avatar-nghieng-dau-tran-ngap-facebook-700488-1568.jpg")
+
+# 3.times do |n|
+#     User.create!([
+#       {
+#         email: "user#{n+1}@gmail.com",
+#         name: Faker::Name.unique.name,
+#         password: "user@123",
+#         role: "member",
+#         avatar_link: "https://2.bp.blogspot.com/-d6NXFXNJ4Fk/WYMk9vIgj8I/AAAAAAAApRw/oOBYL6DF5Ww8UPrmkHgDmmKM2CRuVKmiwCLcBGAs/s1600/3_7_1345792436_77_1345790788-nguoi-yeu-cu-1.jpg"
+#       }
+#     ])
+# end
 
 Image.create!([
     {user_id: 2, title:"まだまだ載せたい写真が沢山☺️#ポートレートモデル",
