@@ -1,3 +1,11 @@
+School.create!([
+  {name: "Đại học Bách Khoa Hà Nội", longitude: 21.004853, latitude: 105.844980},
+  {name: "Đại học Xây dựng Hà Nội", longitude: 21.003664, latitude: 105.843321},
+  {name: "Đại học Thương mại Hà Nội", longitude: 21.036740, latitude: 105.775132},
+  {name: "Đại học Ngoại thương Hà Nội", longitude: 21.023353, latitude: 105.805448},
+  {name: "Đại học Mỏ địa chất Hà Nội", longitude: 21.071951, latitude: 105.773941},
+]) 
+
 User.create(name: "admin test", email: "admin@gmail.com", password: "admin@123", role: "admin",avatar_link: "http://data.kenhsinhvien.net/hinhanh/2013/01/21/trao-luu-avatar-nghieng-dau-tran-ngap-facebook-700488-1568.jpg")
 
 User.create(name:"user test", email: "user@gmail.com", password: "user@123", role: "member",avatar_link: "http://data.kenhsinhvien.net/hinhanh/2013/01/21/trao-luu-avatar-nghieng-dau-tran-ngap-facebook-700488-1568.jpg")
@@ -9,7 +17,8 @@ User.create(name:"user test", email: "user@gmail.com", password: "user@123", rol
     		name: Faker::Name.unique.name,
     		password: "user@123",
     		role: "member",
-    		avatar_link: "https://2.bp.blogspot.com/-d6NXFXNJ4Fk/WYMk9vIgj8I/AAAAAAAApRw/oOBYL6DF5Ww8UPrmkHgDmmKM2CRuVKmiwCLcBGAs/s1600/3_7_1345792436_77_1345790788-nguoi-yeu-cu-1.jpg"
+        avatar_link: "https://2.bp.blogspot.com/-d6NXFXNJ4Fk/WYMk9vIgj8I/AAAAAAAApRw/oOBYL6DF5Ww8UPrmkHgDmmKM2CRuVKmiwCLcBGAs/s1600/3_7_1345792436_77_1345790788-nguoi-yeu-cu-1.jpg",
+        school_id: "#{n+1}"
     	}
     ])
 end
@@ -51,11 +60,3 @@ Friendship.create!([
        state:"approved",
       },
 ])
-
-School.create!([
-  {name: "Đại học Bách Khoa Hà Nội", longitude: 21.004853, latitude: 105.844980},
-  {name: "Đại học Xây dựng Hà Nội", longitude: 21.003664, latitude: 105.843321},
-  {name: "Đại học Thương mại Hà Nội", longitude: 21.036740, latitude: 105.775132},
-  {name: "Đại học Ngoại thương Hà Nội", longitude: 21.023353, latitude: 105.805448},
-  {name: "Đại học Mỏ địa chất Hà Nội", longitude: 21.071951, latitude: 105.773941},
-]) 

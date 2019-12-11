@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :messages
   has_many :subscriptions
   has_many :chats, through: :subscriptions
+  belongs_to :school
 
 
   mount_uploader :avatar, AvatarUploader
