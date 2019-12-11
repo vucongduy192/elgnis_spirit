@@ -6,6 +6,7 @@ class FriendshipsController < ApplicationController
   def index
     # @friendships = Friendship.all
     @images = (Image.all - current_user.images - Image.where(user_id: @suggest_user)).shuffle
+    @advertisements = Advertisement.all.shuffle
     @existing_chats_users = current_user.existing_chats_users
   end
 

@@ -11,12 +11,32 @@
         background-size: 35px 35px;
         background-position-y: 11px;
     }
+/*    #tinderslide {
+
+        position:relative;
+    }
+    #hideMe {
+        -webkit-animation: cssAnimation 6s forwards; 
+        animation: cssAnimation 6s forwards;
+    }
+    @keyframes cssAnimation {
+        0%   {opacity: 1;}
+        90%  {opacity: 1;}
+        100% {opacity: 0;}
+    }
+    @-webkit-keyframes cssAnimation {
+        0%   {opacity: 1;}
+        90%  {opacity: 1;}
+        100% {opacity: 0;}
+    }*/
 </style>
 <div class="wrap">
   <!-- start jtinder container -->
   <div id="tinderslide">
    <ul>
+      <% temp = 0 %>
       <% @images.each do |image| %>
+        <% if temp % 4 != 0 %>
         <li class="pane<%= image.id % 5 + 1 %>" id="user_<%= image.user.id %>">
           <div class="img">
             <% if image.file.present?%>
@@ -31,9 +51,21 @@
           <div style="font-size: 14px">
             <%= image.title %>
           </div>
-          <div class="like"></div>
-          <div class="dislike"></div>
         </li>
+        <% else %>
+        <% adver = @advertisements.shuffle.first %>
+        <li class="pane<%= adver.id % 5 + 1 %>" id="hideMe">
+          <div class="img">
+            <%= link_to (image_tag adver.file, class:'center-block', style:'align-content: center; background-size: cover; height: 400px;'), adver.link, :target => "_blank" %>
+          </div>
+          <div style = "color: #aaa;">広告 : <%= adver.title %>
+          </div>
+          <div style="font-size: 14px">
+            <%= adver.link %>
+          </div>
+        </li>
+        <% end %>
+        <% temp = temp +1  %>
       <% end %>
     </ul>
   </div>
