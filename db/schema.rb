@@ -62,6 +62,14 @@ ActiveRecord::Schema.define(version: 2019_12_11_142354) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "schools", force: :cascade do |t|
+    t.string "name"
+    t.float "longitude"
+    t.float "latitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "subscriptions", force: :cascade do |t|
     t.integer "chat_id"
     t.integer "user_id"
@@ -87,10 +95,12 @@ ActiveRecord::Schema.define(version: 2019_12_11_142354) do
     t.string "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.integer "school_id", default: 1
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["name"], name: "index_users_on_name", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["school_id"], name: "index_users_on_school_id"
   end
 
 end

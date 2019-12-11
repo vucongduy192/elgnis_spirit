@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :schools
   resources :image_states
   mount ActionCable.server => '/cable'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'

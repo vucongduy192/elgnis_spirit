@@ -14,7 +14,9 @@ class ApplicationController < ActionController::Base
     protected
 
     def configure_permitted_parameters
-        added_attrs = [:name, :age, :email, :password, :password_confirmation, :remember_me, :avatar]
-        devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
+        @school = School.all
+        attrs = [:name, :age, :email, :password, :password_confirmation, :remember_me, :avatar, :school_id]
+        devise_parameter_sanitizer.permit :sign_up, keys: attrs
+        devise_parameter_sanitizer.permit :account_update, keys: attrs
     end
 end
