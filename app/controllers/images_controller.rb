@@ -7,6 +7,7 @@ class ImagesController < ApplicationController
   def index
     @images = current_user.images.reverse
     @existing_chats_users = current_user.existing_chats_users
+    
   end
 
   # GET /images/1
