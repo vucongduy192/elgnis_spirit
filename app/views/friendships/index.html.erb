@@ -2,21 +2,41 @@
 <!-- start padding container -->
 <style>
     .actions a.dislike i {
-        background: url(/assets/x.png) no-repeat scroll center center;
-        background-size: 180px 60px;
-        background-position-y: 5px;
+        background: url(/assets/dislike_button.png) no-repeat scroll center center;
+        background-size: 35px 35px;
+        background-position-y: 17px;
     }
     .actions a.like i {
-        background: url(/assets/o.png) no-repeat scroll center center;
+        background: url(/assets/like_button.png) no-repeat scroll center center;
         background-size: 35px 35px;
         background-position-y: 11px;
     }
+/*    #tinderslide {
+
+        position:relative;
+    }
+    #hideMe {
+        -webkit-animation: cssAnimation 6s forwards; 
+        animation: cssAnimation 6s forwards;
+    }
+    @keyframes cssAnimation {
+        0%   {opacity: 1;}
+        90%  {opacity: 1;}
+        100% {opacity: 0;}
+    }
+    @-webkit-keyframes cssAnimation {
+        0%   {opacity: 1;}
+        90%  {opacity: 1;}
+        100% {opacity: 0;}
+    }*/
 </style>
 <div class="wrap">
   <!-- start jtinder container -->
   <div id="tinderslide">
    <ul>
+      <% temp = 0 %>
       <% @images.each do |image| %>
+        <% if temp % 4 != 0 %>
         <li class="pane<%= image.id % 5 + 1 %>" id="user_<%= image.user.id %>">
           <div class="img">
             <% if image.file.present?%>
@@ -36,10 +56,27 @@
             <%= image.user.school.name %>
             　ー　あなたから<b><%= @distances[image.user.name]/1000 %>キロメートル</b>です
           </div>
+<<<<<<< HEAD
           
           <div class="like"></div>
           <div class="dislike"></div>
+=======
+>>>>>>> c7c4f3f3d09d040707a1db4c7b0a1a05d8ddbe1a
         </li>
+        <% else %>
+        <% adver = @advertisements.shuffle.first %>
+        <li class="pane<%= adver.id % 5 + 1 %>" id="hideMe">
+          <div class="img">
+            <%= link_to (image_tag adver.file, class:'center-block', style:'align-content: center; background-size: cover; height: 400px;'), adver.link, :target => "_blank" %>
+          </div>
+          <div style = "color: #aaa;">広告 : <%= adver.title %>
+          </div>
+          <div style="font-size: 14px">
+            <%= adver.link %>
+          </div>
+        </li>
+        <% end %>
+        <% temp = temp +1  %>
       <% end %>
     </ul>
   </div>
