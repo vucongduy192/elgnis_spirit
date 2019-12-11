@@ -36,10 +36,16 @@
    <ul>
       <% temp = 0 %>
       <% @images.each do |image| %>
-        <% if temp % 4 != 0 %>
+            <% count = 0 %>
+            <% @disliked_image.each do |dis| %>
+              <% if dis.friend_id == image.user.id and dis.image_id == image.id %>
+                <% count = 1 %>
+              <% end %>
+            <% end %>
+        <% if temp % 4 != 0 and count == 0 %>
         <li class="pane<%= image.id % 5 + 1 %>" id="user_<%= image.user.id %>">
-          <div class="img">
-            <% if image.file.present?%>
+          <div class="img" id="image_<%= image.id %>">
+            <% if image.file.present?   %>
                 <%= image_tag image.file.url, class:'center-block', style:'align-content: center; background-size: cover; height: 400px;'%>
             <% else %>
                 <%= image_tag image.link, class:'center-block', style:'align-content: center; background-size: cover; height: 400px;'%>
@@ -51,8 +57,10 @@
           <div style="font-size: 14px">
             <%= image.title %>
           </div>
+          <div class="like"></div>
+          <div class="dislike"></div>
         </li>
-        <% else %>
+        <% elsif count == 0%>
         <% adver = @advertisements.shuffle.first %>
         <li class="pane<%= adver.id % 5 + 1 %>" id="hideMe">
           <div class="img">
@@ -88,6 +96,22 @@
 
         onDislike: function (item) {
             //alert('Dislike image ' + (item.index()+1));
+            var myId1 = $("#tinderslide > ul li").last().attr("id").split('_').pop();
+            var imgId = $("#tinderslide > ul li .img").last().attr("id").split('_').pop();
+            console.log("disliked user" + myId1);
+            console.log("Image" + imgId);
+
+            $.ajax({
+                url: '/image_states',
+                type: 'POST',
+                data: {
+                    image_state: {friend_id: myId1 ,image_id: imgId}
+                },
+                success: function (data) {
+                    console.log(data);
+                    console.log("success");
+                },
+            });
         },
         onLike: function (item) {
             var myId = $("#tinderslide > ul li").last().attr("id").split('_').pop();
@@ -106,6 +130,8 @@
             });
 
         },
+        likeSelector: '.like',
+        dislikeSelector: '.dislike'
     });
     $('.actions .like, .actions .dislike').click(function(e){
         e.preventDefault();
