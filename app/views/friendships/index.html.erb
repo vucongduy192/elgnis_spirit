@@ -1,5 +1,4 @@
 <body>
-<!-- start padding container -->
 <style>
     .actions a.dislike i {
         background: url(/assets/dislike_button.png) no-repeat scroll center center;
@@ -37,103 +36,139 @@
 
 </style>
   <div class="wrap">
-    <%# start jtinder container %>
+    <%# start jtinder slider%>
     <div id="tinderslide">
-      <ul>
-        <% @images.each_with_index do |image, slide_id| %>
-          <li class="pane<%= image.id%>" data-slide_id="<%= slide_id %>" data-user_id="<%= image.user.id %>">
-            <div class="img">
-              <% if image.file.present?%>
-                  <%= image_tag image.file.url, class:'center-block', style:'align-content: center; background-size: cover; height: 400px;'%>
-              <% else %>
-                  <%= image_tag image.link, class:'center-block', style:'align-content: center; background-size: cover; height: 400px;'%>
-              <% end %>
-            </div>
-            <div style="font-size: 14px">
-              <%= image.title %>
-            </div>
-            <br>
-            <div style = "color: #ff288d;">
-              <%= image.user.name %>
-            </div>
-            <div style="font-size: 16px; margin-top:5px;">
-              <%= image.user.school.name %>
-              　ー　あなたから<b><%= @distances[image.user.name]/1000 %>キロメートル</b>です
-            </div>
-          </li>
-        <% end %>
-      </ul>
+      	<ul>
+		<% @images.each_with_index do |image, slide_id| %>
+			<% 
+				disliked = 0
+				@disliked_image.each do |image_state|
+					if image.id == image_state.image_id
+						disliked = 1
+						break
+					end
+				end
+
+				if disliked == 1
+					next
+				end
+			%>
+
+			<li class="pane<%= image.id%>" data-slide_id="<%= slide_id %>" data-user_id="<%= image.user.id %>">
+				<div class="img">
+					<% if image.file.present?%>
+						<%= image_tag image.file.url, class:'center-block', 
+							style:'align-content: center; background-size: cover; height: 400px;'%>
+					<% else %>
+						<%= image_tag image.link, class:'center-block', 
+							style:'align-content: center; background-size: cover; height: 400px;'%>
+					<% end %>
+				</div>
+				
+				<%# Image title + hashtag %>
+				<div style="font-size: 14px">
+					<%= image.title %>
+				</div><br>
+
+				<%# Username + University %>
+				<div style = "color: #ff288d;">
+					<%= image.user.name %>
+				</div>
+				<div style="font-size: 16px; margin-top:5px;">
+					<%= image.user.school.name %>
+					　ー　あなたから<b><%= @distances[image.user.name]/1000 %>キロメートル</b>です
+				</div>
+			</li>
+		<% end %>
+      	</ul>
     </div>
     
     <%# embed advert %>
     <div id="advert">
-      <% @advertisements.each_with_index do |advert, advert_id| %>
-        <div class="advert_pane<%=advert_id%>" style="display: none">
-          <%= link_to (image_tag advert.file, class:'center-block'), 
-              advert.link, :target => "_blank" %>
-              <p>5秒間の広告を待つ。</p>
-        </div>
-      <% end %>
+		<% @advertisements.each_with_index do |advert, advert_id| %>
+			<div class="advert_pane<%=advert_id%>" style="display: none">
+			<%= link_to (image_tag advert.file, class:'center-block'), 
+				advert.link, :target => "_blank" %>
+				<p>5秒間の広告を待つ。</p>
+			</div>
+		<% end %>
     </div>
   </div>
 
+<%# Like + Dislike button %>
 <div class="actions">
-  <a href="#" class="dislike"><i></i></a>
-  <a href="#" class="like"><i></i></a>
+	<a href="#" class="dislike"><i></i></a>
+	<a href="#" class="like"><i></i></a>
 </div>
 
 </body>
 <script type="text/javascript">
-    var advert_size = parseInt('<%=@advertisements.size%>')
-    var current_slide, user_id, slide_id;
-    $("#tinderslide").jTinder({
-        onDislike: function (item) {       
-          current_slide = $("#tinderslide > ul li").last();
-          user_id = current_slide.data("user_id");
-          slide_id = current_slide.data("slide_id");
-          embedAdvert()
-        },
-        onLike: function (item) {
-          current_slide = $("#tinderslide > ul li").last();
-          user_id = current_slide.data("user_id");
-          slide_id = current_slide.data("slide_id");
+	var advert_size = parseInt('<%=@advertisements.size%>')
+	var current_slide, user_id, slide_id;
+	$("#tinderslide").jTinder({
+		// event drag slide is set on 'onDislike'
+		onDislike: function (item) {
+			current_slide = $("#tinderslide > ul li").last();
+			user_id = current_slide.data("user_id");
+			slide_id = current_slide.data("slide_id");
+			$.ajax({
+				url: '/image_states',
+				type: 'POST',
+				data: {
+					image_state: {friend_id: user_id ,image_id: slide_id}
+				},
+				success: function (data) {
+					console.log(data);
+					console.log("Dislike or drag success");
+					embedAdvert()
+				},
+			});
+		},
+		onLike: function (item) {
+			current_slide = $("#tinderslide > ul li").last();
+			user_id = current_slide.data("user_id");
+			slide_id = current_slide.data("slide_id");
 
-          console.log("In slide " + slide_id + "liked user" + user_id);
+			console.log("In slide " + slide_id + "liked user" + user_id);
 
-          $.ajax({
-              url: '/friendships',
-              type: 'POST',
-              data: {
-                  friendship: {friend_id: user_id}
-              },
-              success: function (data) {
-                  console.log(data);
-                  console.log("success");
-              },
-          });
-          embedAdvert()
-        },
-    });
+			$.ajax({
+				url: '/friendships',
+				type: 'POST',
+				data: {
+					friendship: {friend_id: user_id}
+				},
+				success: function (data) {
+					console.log(data);
+					console.log("Like success");
+					embedAdvert()
+				},
+			});
+		},
+		likeSelector: '.like',
+		dislikeSelector: '.dislike'
+	});
 
-    function embedAdvert() {
-      console.log(slide_id)
-      if ((slide_id) %3 === 0) {
-        addvert_rdn = Math.floor(Math.random() * advert_size);
-        $('#tinderslide').css("display", "none");
-        $('.actions').css("display", "none");
-        $('.advert_pane' + addvert_rdn).css("display", "block");
+	// Switch (#tinderslide, .actions) && (.advert_pane)
+	// Change display block to none, set Timeout to reverse 
+	function embedAdvert() {
+		console.log(slide_id)
+		if ((slide_id) %6 === 0) {
+			addvert_rdn = Math.floor(Math.random() * advert_size);
+			$('#tinderslide').css("display", "none");
+			$('.actions').css("display", "none");
+			$('.advert_pane' + addvert_rdn).css("display", "block");
 
-        setTimeout(() => {
-          $('#tinderslide').css("display", "block");
-          $('.actions').css("display", "block");
-          $('.advert_pane' + addvert_rdn).css("display", "none");
-        }, 5000);
-      }
-    }
+			setTimeout(() => {
+			$('#tinderslide').css("display", "block");
+			$('.actions').css("display", "block");
+			$('.advert_pane' + addvert_rdn).css("display", "none");
+			}, 5000);
+		}
+	}
 
-    $('.actions .like, .actions .dislike').click(function(e){
-        e.preventDefault();
-        $("#tinderslide").jTinder($(this).attr('class'));
-    });
+	$('.actions .like, .actions .dislike').click(function(e){
+		e.preventDefault();
+		$("#tinderslide").jTinder($(this).attr('class'));
+	});
 </script>
 

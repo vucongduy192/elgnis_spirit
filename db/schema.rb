@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_11_094531) do
+ActiveRecord::Schema.define(version: 2019_12_11_142354) do
 
   create_table "advertisements", force: :cascade do |t|
     t.integer "adver_id"
@@ -32,6 +32,15 @@ ActiveRecord::Schema.define(version: 2019_12_11_094531) do
     t.integer "friend_id"
     t.string "state", default: "pending"
     t.datetime "friended_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "image_states", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "friend_id"
+    t.integer "image_id"
+    t.string "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

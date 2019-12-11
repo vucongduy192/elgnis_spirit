@@ -7,6 +7,7 @@ class User < ApplicationRecord
   devise :omniauthable, :omniauth_providers => [:google_oauth2]
   has_many :images
   has_many :friendships
+  has_many :image_state
   has_many :messages
   has_many :subscriptions
   has_many :chats, through: :subscriptions

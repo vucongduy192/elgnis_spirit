@@ -3,8 +3,5 @@ class Image < ApplicationRecord
 
     mount_uploader :file ,ImageUploader
     belongs_to :user
-    
-    def set_distance(distance)
-        self.distance = distance
-    end
+    has_many :image_state
 end
