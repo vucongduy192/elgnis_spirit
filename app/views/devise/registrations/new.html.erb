@@ -40,7 +40,7 @@
 
                             <div class="form-group">
                             <em>大学</em><br />
-                                <%= select_tag "school", options_from_collection_for_select(@school, "id", "name") %>
+                                <%= select_tag "user[school_id]",  options_from_collection_for_select(@school, "id", "name"), {:class => 'form-control'} %>
                             </div>
 
                             <!--<div class="form-group">-->
