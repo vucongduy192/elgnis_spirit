@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_11_094531) do
+ActiveRecord::Schema.define(version: 2019_12_11_142354) do
+
+  create_table "advertisements", force: :cascade do |t|
+    t.integer "adver_id"
+    t.string "title"
+    t.string "file"
+    t.string "link"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "chats", force: :cascade do |t|
     t.string "identifier"
@@ -23,6 +32,15 @@ ActiveRecord::Schema.define(version: 2019_12_11_094531) do
     t.integer "friend_id"
     t.string "state", default: "pending"
     t.datetime "friended_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "image_states", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "friend_id"
+    t.integer "image_id"
+    t.string "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -74,7 +92,11 @@ ActiveRecord::Schema.define(version: 2019_12_11_094531) do
     t.string "role"
     t.string "avatar"
     t.string "avatar_link"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
     t.integer "school_id", default: 1
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["name"], name: "index_users_on_name", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

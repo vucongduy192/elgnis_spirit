@@ -5,22 +5,28 @@ class FriendshipsController < ApplicationController
   # GET /friendships.json
   def index
     # @friendships = Friendship.all
+    @disliked_image = ImageState.where(user_id: current_user.id)
+    puts (@disliked_image[0])
     @images = (Image.all - current_user.images - Image.where(user_id: @suggest_user)).shuffle
+    @advertisements = Advertisement.all.shuffle
     @existing_chats_users = current_user.existing_chats_users
-    @gmap_key = 'AIzaSyCcMJDRk9Sj2tpz7SVurwZCMdyg7q9Uoww'\
-    # check key work: https://maps.googleapis.com/maps/api/distancematrix/json?origins=%C4%90%E1%BA%A1i%20h%E1%BB%8Dc%20Th%C6%B0%C6%A1ng%20m%E1%BA%A1i%20H%C3%A0%20N%E1%BB%99i&destinations=%C4%90%E1%BA%A1i%20h%E1%BB%8Dc%20B%C3%A1ch%20Khoa%20H%C3%A0%20N%E1%BB%99i&key=AIzaSyCcMJDRk9Sj2tpz7SVurwZCMdyg7q9Uoww
-    @distances = Hash.new
+    @gmap_key = 'AIzaSyAgoUajR5odRVfEPcWRY3AnYIOUFPJYFQw'
+    # check key work: 
+    # https://maps.googleapis.com/maps/api/distancematrix/json?origins=%C4%90%E1%BA%A1i%20h%E1%BB%8Dc%20Th%C6%B0%C6%A1ng%20m%E1%BA%A1i%20H%C3%A0%20N%E1%BB%99i&destinations=%C4%90%E1%BA%A1i%20h%E1%BB%8Dc%20B%C3%A1ch%20Khoa%20H%C3%A0%20N%E1%BB%99i&key=AIzaSyCcMJDRk9Sj2tpz7SVurwZCMdyg7q9Uoww
 
+    @distances = Hash.new
     @images.each do |image|
-      url = URI.parse(
-        "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" \
-        "#{URI.encode(current_user.school.name)}&destinations=#{URI.encode(image.user.school.name)}&key=#{@gmap_key}"
-      )
-      # Open the URI just like you were doing
-      response = open(url).read
-      # Parse the string response in JSON format
-      result = JSON.parse(response)
-      @distances[image.user.name] = result["rows"].first["elements"].first["distance"]["value"]
+      # url = URI.parse(
+      #   "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" \
+      #   "#{URI.encode(current_user.school.name)}&destinations=#{URI.encode(image.user.school.name)}&key=#{@gmap_key}"
+      # )
+      # # Open the URI just like you were doing
+      # response = open(url).read
+      # # Parse the string response in JSON format
+      # result = JSON.parse(response)
+      # @distances[image.user.name] = result["rows"].first["elements"].first["distance"]["value"]
+
+      @distances[image.user.name] = [12000, 7000, 14000, 10000].sample
     end
   end
 
