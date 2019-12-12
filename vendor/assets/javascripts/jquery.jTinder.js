@@ -14,6 +14,7 @@
 		defaults = {
 			onDislike: null,
 			onLike: null,
+			embedAdvert: null,
 			animationRevertSpeed: 200,
 			animationSpeed: 400,
 			threshold: 1,
@@ -61,7 +62,7 @@
         },
 
 		showPane: function (index) {
-			panes.eq(current_pane).hide().remove();
+			panes.eq(current_pane).hide();
 			current_pane = index;
 
 			$(".spinner").show();

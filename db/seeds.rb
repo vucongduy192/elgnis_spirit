@@ -138,7 +138,7 @@ Friendship.create!([
 Advertisement.create!([
     {adver_id: 1, title:"Facebook",
      file:"http://clipart-library.com/new_gallery/10_facebook-logo-png.png",
-     link:"http://facebook.com",
+     link:"https://facebook.com",
     },
     {adver_id: 2, title:"hihi",
      file:"https://ngoinhagaubong.com/wp-content/uploads/2019/10/IMG_E9491-copy.jpg",
