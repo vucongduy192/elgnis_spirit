@@ -28,9 +28,10 @@
       font-weight: bold;
     }
     #advert a {
-      width: 100%;
+      /*width: 100%;*/
     }
     #advert img {
+      width: 100%;
       height: 400px;
     }
 
@@ -43,7 +44,7 @@
 			<% 
 				disliked = 0
 				@disliked_image.each do |image_state|
-					if image.id == image_state.image_id
+					if image_state.friend_id == image.user.id and image_state.image_id == image.id
 						disliked = 1
 						break
 					end
@@ -54,7 +55,7 @@
 				end
 			%>
 
-			<li class="pane<%= image.id%>" data-slide_id="<%= slide_id %>" data-user_id="<%= image.user.id %>">
+			<li class="pane<%= image.id%>" data-slide_id="<%= slide_id %>" data-image_id="<%= image.id %>" data-user_id="<%= image.user.id %>">
 				<div class="img">
 					<% if image.file.present?%>
 						<%= image_tag image.file.url, class:'center-block', 
@@ -104,18 +105,20 @@
 </body>
 <script type="text/javascript">
 	var advert_size = parseInt('<%=@advertisements.size%>')
-	var current_slide, user_id, slide_id;
+	var current_slide, user_id, image_id, slide_id;
 	$("#tinderslide").jTinder({
 		// event drag slide is set on 'onDislike'
 		onDislike: function (item) {
 			current_slide = $("#tinderslide > ul li").last();
 			user_id = current_slide.data("user_id");
 			slide_id = current_slide.data("slide_id");
+			image_id = current_slide.data("image_id");
+			
 			$.ajax({
 				url: '/image_states',
 				type: 'POST',
 				data: {
-					image_state: {friend_id: user_id ,image_id: slide_id}
+					image_state: {friend_id: user_id ,image_id: image_id}
 				},
 				success: function (data) {
 					console.log(data);
@@ -159,10 +162,10 @@
 			$('.advert_pane' + addvert_rdn).css("display", "block");
 
 			setTimeout(() => {
-			$('#tinderslide').css("display", "block");
-			$('.actions').css("display", "block");
-			$('.advert_pane' + addvert_rdn).css("display", "none");
-			}, 5000);
+				$('#tinderslide').css("display", "block");
+				$('.actions').css("display", "block");
+				$('.advert_pane' + addvert_rdn).css("display", "none");
+			}, 10000);
 		}
 	}
 
