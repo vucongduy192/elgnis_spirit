@@ -10,7 +10,7 @@ class FriendshipsController < ApplicationController
     @images = (Image.all - current_user.images - Image.where(user_id: @suggest_user)).shuffle
     @advertisements = Advertisement.all.shuffle
     @existing_chats_users = current_user.existing_chats_users
-    @gmap_key = 'AIzaSyAgoUajR5odRVfEPcWRY3AnYIOUFPJYFQw'
+    @gmap_key = 'AIzaSyA-IXkoMN3JHS7H7eqZVdSUOeBdF7G7j-I'
     # check key work: 
     # https://maps.googleapis.com/maps/api/distancematrix/json?origins=%C4%90%E1%BA%A1i%20h%E1%BB%8Dc%20Th%C6%B0%C6%A1ng%20m%E1%BA%A1i%20H%C3%A0%20N%E1%BB%99i&destinations=%C4%90%E1%BA%A1i%20h%E1%BB%8Dc%20B%C3%A1ch%20Khoa%20H%C3%A0%20N%E1%BB%99i&key=AIzaSyCcMJDRk9Sj2tpz7SVurwZCMdyg7q9Uoww
 
@@ -22,6 +22,7 @@ class FriendshipsController < ApplicationController
       # )
       # # Open the URI just like you were doing
       # response = open(url).read
+      # puts(url)
       # # Parse the string response in JSON format
       # result = JSON.parse(response)
       # @distances[image.user.name] = result["rows"].first["elements"].first["distance"]["value"]

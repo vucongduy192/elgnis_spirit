@@ -49,11 +49,18 @@ class ImageStatesController < ApplicationController
 
   # DELETE /image_states/1
   # DELETE /image_states/1.json
-  def destroy
-    @image_state.destroy
-    respond_to do |format|
-      format.html { redirect_to image_states_url, notice: 'Image state was successfully destroyed.' }
-      format.json { head :no_content }
+  # Override to own destroy by 
+  def handle_destroy
+    # @image_state.destroy
+    # respond_to do |format|
+    #   format.html { redirect_to image_states_url, notice: 'Image state was successfully destroyed.' }
+    #   format.json { head :no_content }
+    # end
+    friend_id = image_state_params[:friend_id]
+    img_id = image_state_params[:image_id]
+    my_image_state = ImageState.find_by(user_id:current_user.id, friend_id:friend_id, image_id: img_id)
+    if !my_image_state.blank?
+      my_image_state.destroy
     end
   end
 
