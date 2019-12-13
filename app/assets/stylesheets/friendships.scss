@@ -4,8 +4,8 @@
 .actions {
     width: 80% !important;
 }
-.actions .dislike{
-  margin-left: 25% !important;
+.actions .dislike, .actions .like{
+  float: right;
 }
 
 .actions a.dislike i, .actions a.like i{
@@ -30,7 +30,7 @@
 #advert {
   position: relative;
   background: #fff;
-  width: 80%;
+  width: 100%;
   height: 100%;
   margin-left: auto;
   margin-right: auto;
@@ -41,7 +41,10 @@
   font-size: 24px;
   font-weight: bold;
 }
+#advert a {
+  width: 100%;
+}
 #advert img {
   width: 100%;
-  height: 400px;
+  height: 700px;
 }

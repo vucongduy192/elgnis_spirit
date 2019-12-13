@@ -58,7 +58,10 @@ class ImageStatesController < ApplicationController
     # end
     friend_id = image_state_params[:friend_id]
     img_id = image_state_params[:image_id]
-    my_image_state = ImageState.find_by(user_id:current_user.id, friend_id:friend_id, image_id: img_id).destroy
+    my_image_state = ImageState.find_by(user_id:current_user.id, friend_id:friend_id, image_id: img_id)
+    if !my_image_state.blank?
+      my_image_state.destroy
+    end
   end
 
   private

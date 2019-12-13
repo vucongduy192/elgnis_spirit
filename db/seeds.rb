@@ -136,16 +136,20 @@ Friendship.create!([
 ])
 
 Advertisement.create!([
-    {adver_id: 1, title:"Facebook",
-     file:"http://clipart-library.com/new_gallery/10_facebook-logo-png.png",
-     link:"https://facebook.com",
+    {adver_id: 1, title:"Burger",
+     file:"https://i.pinimg.com/originals/4d/33/69/4d336934112461bea404675c3da10c82.jpg",
+     link:"https://www.bk.com/",
     },
-    {adver_id: 2, title:"hihi",
+    {adver_id: 2, title:"Bear Toy",
      file:"https://ngoinhagaubong.com/wp-content/uploads/2019/10/IMG_E9491-copy.jpg",
      link:"https://ngoinhagaubong.com/gau-ao-love.html",
     },
-    {adver_id: 3, title:"toy",
-     file:"https://ngoinhagaubong.com/wp-content/uploads/2018/05/gau-ao-len-sao-3.jpg",
-     link:"https://ngoinhagaubong.com/gau-ao-len-sao.html",
-    }
+    {adver_id: 3, title:"Colgate",
+     file:"https://i.pinimg.com/originals/4d/33/69/4d336934112461bea404675c3da10c82.jpg",
+     link:"https://www.colgate.com.vn/",
+    },
+    {adver_id: 4, title:"",
+      file:"https://i.ytimg.com/vi/Fiaez8ieXMg/maxresdefault.jpg",
+      link:"https://www.colgate.com.vn/",
+     }
   ])
