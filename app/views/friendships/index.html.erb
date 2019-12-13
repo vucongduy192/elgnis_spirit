@@ -1,6 +1,4 @@
 <body>
-<style>
-</style>
   <div class="wrap">
     <%# start jtinder slider%>
     <div id="tinderslide">
@@ -35,6 +33,7 @@
 				<%# Image title + hashtag %>
 				<div style="font-size: 14px">
 					<%= image.title %>
+					pane<%= slide_id%>
 				</div><br>
 
 				<%# Username + University %>
@@ -65,20 +64,17 @@
 
 <%# Like + Dislike button %>
 <div class="actions">
-	<a href="#" class="back"><img src="/assets/back_button.png"></a>
+	<a href="#" class="undo"><img src="/assets/back_button.png"></a>
 	<a href="#" class="dislike"><i></i></a>
 	<a href="#" class="like"><i></i></a>
-	<a href="#" class="next"><img src="/assets/next_button.png"></a>
 </div>
 
 </body>
 <script type="text/javascript">
-	var advert_size = parseInt('<%=@advertisements.size%>');
 	$("#tinderslide").jTinder({
 		// ----------- Attributes -----------
-		slide_size: parseInt('<%= (slide_id-1) %>'),
-	
-		slide_id: parseInt('<%= (slide_id-1) %>'),	// use to count from slide_size to 0
+		advert_size: parseInt('<%=@advertisements.size%>'),
+		count2advert: 0,
 		current_slide: null, 
 		user_id: null, 
 		image_id: null,
@@ -89,7 +85,7 @@
 		// ------------ Methods --------------
 		onDislike: function (item) {
 			// event drag slide is set on 'onDislike'
-			this.current_slide = $(`.pane${this.slide_id}`);
+			this.current_slide = $(`.pane${item.index()}`);
 			this.user_id = this.current_slide.data("user_id");
 			this.image_id = this.current_slide.data("image_id");
 			
@@ -99,61 +95,77 @@
 				data: {
 					image_state: {friend_id: this.user_id ,image_id: this.image_id}
 				},
-				success: function (data) {
+				success: () => {
 					console.log("Dislike or drag success");
-					embedAdvert(this.slide_size, this.slide_id)
-					this.slide_id--;
+					this.embedAdvert();
 				},
 			});
 		},
 
 		onLike: function (item) {
-			this.current_slide = $(`.pane${this.slide_id}`);
+			this.current_slide = $(`.pane${item.index()}`);
 			this.user_id = this.current_slide.data("user_id");			
+
 			$.ajax({
 				url: '/friendships',
 				type: 'POST',
 				data: {
 					friendship: {friend_id: this.user_id}
 				},
-				success: function (data) {
+				success: () => {
 					console.log("Like success");
-					console.log(this.slide_id);
-					embedAdvert(this.slide_size, this.slide_id)
-					this.slide_id--;
+					this.embedAdvert();
 				},
 			});
+		},
+
+		onUndo: function (item) {
+			this.count2advert = -1	
+
+			this.current_slide = $(`.pane${item.index()}`);
+			this.user_id = this.current_slide.data("user_id");
+			this.image_id = this.current_slide.data("image_id");
+			
+			console.log(this.user_id, this.image_id, item.index())
+			$.ajax({
+				url: '/image_states',	// handle destroy
+				type: 'DELETE',
+				data: {
+					image_state: {friend_id: this.user_id ,image_id: this.image_id}
+				},
+				success: () => {
+					console.log("Undo success");
+					this.embedAdvert();
+				},
+			});
+			this.embedAdvert();
+		},
+
+		embedAdvert: function () {
+			this.count2advert++;
+			if (this.count2advert%10 === 0) {
+				addvert_rdn = Math.floor(Math.random() * this.advert_size);
+				$('#tinderslide').css("display", "none");
+				$('.actions').css("display", "none");
+				$(`.advert_pane${addvert_rdn}`).css("display", "block");
+
+				setTimeout(() => {
+					$('#tinderslide').css("display", "block");
+					$('.actions').css("display", "block");
+					$(`.advert_pane${addvert_rdn}`).css("display", "none");
+				}, 5000);
+			}
 		}
 	});
-
-	function embedAdvert (slide_size, slide_id) {
-		console.log(slide_id)
-		if ((slide_size - slide_id)%10 === 0) {
-			addvert_rdn = Math.floor(Math.random() * advert_size);
-			$('#tinderslide').css("display", "none");
-			$('.actions').css("display", "none");
-			$(`.advert_pane${addvert_rdn}`).css("display", "block");
-
-			setTimeout(() => {
-				$('#tinderslide').css("display", "block");
-				$('.actions').css("display", "block");
-				$(`.advert_pane${addvert_rdn}`).css("display", "none");
-			}, 5000);
-		}
-	}
-
-	// Switch (#tinderslide, .actions) && (.advert_pane)
-	// Change display block to none, set Timeout to reverse 
-	$('.actions .like, .actions .dislike').click(function(e){
+	
+	$('.actions .like, .actions .dislike, .actions .undo').click(function(e){
 		e.preventDefault();
 		$("#tinderslide").jTinder($(this).attr('class'));
 	});
-	function jump_slide(id) {
-		
-	}
+	
 
-	$('.actions .back').click(function(e){
-		e.preventDefault();
-	});
+
+
+
 </script>
 

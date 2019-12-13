@@ -14,6 +14,7 @@
 		defaults = {
 			onDislike: null,
 			onLike: null,
+			onUndo: null,
 			embedAdvert: null,
 			animationRevertSpeed: 200,
 			animationSpeed: 400,
@@ -120,6 +121,17 @@
 
 		next: function () {
 			return this.showPane(current_pane - 1);
+		},
+
+		undo: function (callback) {
+			if(current_pane !== panes.length - 1) {
+				++current_pane;
+				panes.eq(current_pane).animate({"transform": "translate(0px,0px) rotate(0deg)"}, $that.settings.animationRevertSpeed);
+				panes.eq(current_pane).find($that.settings.likeSelector).css('opacity', 0);
+				panes.eq(current_pane).find($that.settings.dislikeSelector).css('opacity', 0);
+				panes.eq(current_pane).show();
+				$that.settings.onUndo(panes.eq(current_pane));
+			}
 		},
 
 		dislike: function() {
