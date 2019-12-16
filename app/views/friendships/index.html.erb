@@ -3,59 +3,59 @@
     <%# start jtinder slider%>
     <div id="tinderslide">
       	<ul>
-		<% slide_id=0 %>
-		<% @images.each do |image| %>
-			<% 
-				disliked = 0
-				@disliked_image.each do |image_state|
-					if image_state.friend_id == image.user.id and image_state.image_id == image.id
-						disliked = 1
-						break
-					end
-				end
+      		<% slide_id=0 %>
+      		<% @images.each do |image| %>
+      			<% 
+      				disliked = 0
+      				@disliked_image.each do |image_state|
+      					if image_state.friend_id == image.user.id and image_state.image_id == image.id
+      						disliked = 1
+      						break
+      					end
+      				end
 
-				if disliked == 1
-					next
-				end
-			%>
+      				if disliked == 1
+      					next
+      				end
+      			%>
 
-			<li class="pane<%= slide_id%>" data-image_id="<%= image.id %>" data-user_id="<%= image.user.id %>">
-				<div class="img">
-					<% if image.file.present?%>
-						<%= image_tag image.file.url, class:'center-block', 
-							style:'align-content: center; background-size: cover; height: 400px;'%>
-					<% else %>
-						<%= image_tag image.link, class:'center-block', 
-							style:'align-content: center; background-size: cover; height: 400px;'%>
-					<% end %>
-				</div>
-				
-				<%# Image title + hashtag %>
-				<div style="font-size: 14px">
-					<%= image.title %>
-					pane<%= slide_id%>
-				</div><br>
+      			<li class="pane<%= slide_id%>" data-image_id="<%= image.id %>" data-user_id="<%= image.user.id %>">
+      				<div class="img">
+      					<% if image.file.present?%>
+      						<%= image_tag image.file.url, class:'center-block', 
+      							style:'align-content: center; background-size: cover; height: 400px;'%>
+      					<% else %>
+      						<%= image_tag image.link, class:'center-block', 
+      							style:'align-content: center; background-size: cover; height: 400px;'%>
+      					<% end %>
+      				</div>
+      				
+      				<%# Image title + hashtag %>
+      				<div style="font-size: 14px">
+      					<%= image.title %>
+      					pane<%= slide_id%>
+      				</div><br>
 
-				<%# Username + University %>
-				<div style = "color: #ff288d;">
-					<%= image.user.name %>
-				</div>
-				<div style="font-size: 16px; margin-top:5px;">
-					<%= image.user.school.name %>
-					　ー　あなたから<b><%= @distances[image.user.name]/1000 %>キロメートル</b>です
-				</div>
-			</li>
-			<% slide_id +=1 %>
-		<% end %>
+      				<%# Username + University %>
+      				<div style = "color: #ff288d;">
+      					<%= image.user.name %>
+      				</div>
+      				<div style="font-size: 16px; margin-top:5px;">
+      					<%= image.user.school.name %>
+      					　ー　あなたから<b><%= @distances[image.user.name]/1000 %>キロメートル</b>です
+      				</div>
+      			</li>
+      			<% slide_id +=1 %>
+      		<% end %>
       	</ul>
     </div>
 
     <%# embed advert %>
     <div id="advert">
-		<% @advertisements.each_with_index do |advert, advert_id| %>
-			<div class="advert_pane<%=advert_id%>" style="display: none">
-			<%= link_to (image_tag advert.file, class:'center-block'), 
-				advert.link, :target => "_blank" %>
+		<% @advertisements.each_with_index do |advert, idx| %>
+			<div class="advert_pane" data-advert_id="<%=advert.id%>" id="advert_<%=idx%>"  style="display: none">
+			<%= link_to (image_tag advert.file, class:'center-block'),  
+				advert.link,:target => "_blank" %>
 				<p>5秒間の広告を待つ。</p>
 			</div>
 		<% end %>
@@ -120,7 +120,7 @@
 		},
 
 		onUndo: function (item) {
-			this.count2advert = -1	
+			this.count2advert = -1;	
 
 			this.current_slide = $(`.pane${item.index()}`);
 			this.user_id = this.current_slide.data("user_id");
@@ -143,16 +143,16 @@
 
 		embedAdvert: function () {
 			this.count2advert++;
-			if (this.count2advert%10 === 0) {
+			if (this.count2advert%5 === 0) {
 				addvert_rdn = Math.floor(Math.random() * this.advert_size);
 				$('#tinderslide').css("display", "none");
 				$('.actions').css("display", "none");
-				$(`.advert_pane${addvert_rdn}`).css("display", "block");
+				$(`#advert_${addvert_rdn}`).css("display", "block");
 
 				setTimeout(() => {
 					$('#tinderslide').css("display", "block");
 					$('.actions').css("display", "block");
-					$(`.advert_pane${addvert_rdn}`).css("display", "none");
+					$(`#advert_${addvert_rdn}`).css("display", "none");
 				}, 5000);
 			}
 		}
@@ -163,6 +163,22 @@
 		$("#tinderslide").jTinder($(this).attr('class'));
 	});
 	
+  $('.advert_pane').click(function(e){
+    e.preventDefault();
+	var advertID = $(this).data('advert_id');
+	console.log(advertID)
+    $.ajax({
+        url: '/clicks',
+        type: 'POST',
+        data: {
+          click: {advertisement_id: advertID}
+        },
+        success: function(data) {
+          console.log("click success");
+        },
+      });
+
+  });
 
 
 
