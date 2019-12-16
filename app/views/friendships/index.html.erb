@@ -52,10 +52,10 @@
 
     <%# embed advert %>
     <div id="advert">
-		<% @advertisements.each_with_index do |advert, advert_id| %>
-			<div class="advert_pane<%=advert_id%>" id="advert_<%=advert.id%>"  style="display: none">
+		<% @advertisements.each_with_index do |advert, idx| %>
+			<div class="advert_pane" data-advert_id="<%=advert.id%>" id="advert_<%=idx%>"  style="display: none">
 			<%= link_to (image_tag advert.file, class:'center-block'),  
-				advert.link, :id => 'advert_img',:target => "_blank" %>
+				advert.link,:target => "_blank" %>
 				<p>5秒間の広告を待つ。</p>
 			</div>
 		<% end %>
@@ -147,12 +147,12 @@
 				addvert_rdn = Math.floor(Math.random() * this.advert_size);
 				$('#tinderslide').css("display", "none");
 				$('.actions').css("display", "none");
-				$(`.advert_pane${addvert_rdn}`).css("display", "block");
+				$(`#advert_${addvert_rdn}`).css("display", "block");
 
 				setTimeout(() => {
 					$('#tinderslide').css("display", "block");
 					$('.actions').css("display", "block");
-					$(`.advert_pane${addvert_rdn}`).css("display", "none");
+					$(`#advert_${addvert_rdn}`).css("display", "none");
 				}, 5000);
 			}
 		}
@@ -163,9 +163,10 @@
 		$("#tinderslide").jTinder($(this).attr('class'));
 	});
 	
-  $('#advert_img').click(function(e){
+  $('.advert_pane').click(function(e){
     e.preventDefault();
-    var advertID = $("#advert > div").last().attr("id").split('_').pop();
+	var advertID = $(this).data('advert_id');
+	console.log(advertID)
     $.ajax({
         url: '/clicks',
         type: 'POST',
@@ -173,9 +174,7 @@
           click: {advertisement_id: advertID}
         },
         success: function(data) {
-
           console.log("click success");
-          console.log(data);
         },
       });
 
