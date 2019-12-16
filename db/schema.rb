@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_11_142354) do
+ActiveRecord::Schema.define(version: 2019_12_16_083812) do
 
   create_table "advertisements", force: :cascade do |t|
     t.integer "adver_id"
@@ -23,6 +23,12 @@ ActiveRecord::Schema.define(version: 2019_12_11_142354) do
 
   create_table "chats", force: :cascade do |t|
     t.string "identifier"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "clicks", force: :cascade do |t|
+    t.integer "advertisement_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

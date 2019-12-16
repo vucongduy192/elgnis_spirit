@@ -5,7 +5,7 @@ admin = User.new(name: "admin test", email: "admin@gmail.com", password: "admin@
 admin.skip_confirmation!
 admin.save!
 
-user1 = User.new(name: "user test", email: "user@gmail.com", password: "user@123", role: "member", avatar_link: "http://data.kenhsinhvien.net/hinhanh/2013/01/21/trao-luu-avatar-nghieng-dau-tran-ngap-facebook-700488-1568.jpg")
+user1 = User.new(name: "user test", email: "user@gmail.com", password: "user@123", role: "member", school_id: 1,avatar_link: "http://data.kenhsinhvien.net/hinhanh/2013/01/21/trao-luu-avatar-nghieng-dau-tran-ngap-facebook-700488-1568.jpg")
 user1.skip_confirmation!
 user1.save!
 
