@@ -34,7 +34,7 @@ RailsAdmin.config do |config|
 
   config.actions do
     dashboard                     # mandatory
-    index                         # mandatory
+    index                     # mandatory
     new do
       only ['Image', 'Advertisement']
     end
@@ -49,7 +49,7 @@ RailsAdmin.config do |config|
     end
     delete
     # show_in_app
-
+    charts
     ## With an audit adapter, you can add:
     # history_index
     # history_show
@@ -86,6 +86,10 @@ RailsAdmin.config do |config|
         sort_reverse false
       end
       field :title
+      # field :link do
+      #   thumb_method :thumb
+      # end
+      # field :file, :carrierwave
       field :user_id
       field :created_at
     end
