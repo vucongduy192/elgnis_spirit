@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :clicks, :only => [:create]
+  resources :clicks, :only => [:create, :index]
   resources :schools
   resources :image_states, :only => [:create]
   delete '/image_states', to: 'image_states#handle_destroy'

@@ -153,3 +153,18 @@ Advertisement.create!([
       link:"https://www.colgate.com.vn/",
      }
   ])
+
+# 50.times do
+#   id = Faker::Number.between(1,4)
+#   time = Faker::Time.between(7.days.ago, Time.now)             
+#   Click.create(advertisement_id: id, created_at: time)                           
+# end
+
+30.times do |n|
+    Click.create!([
+        {
+            advertisement_id: Faker::Number.between(from: 1, to: 4),
+            created_at: Faker::Time.between(from: DateTime.now - 7, to: DateTime.now) 
+        }
+    ])
+end
