@@ -13,3 +13,5 @@
 //= require turbolinks
 //= require_tree ./channels
 //= require_tree .
+//= require chartkick
+//= require Chart.bundle
