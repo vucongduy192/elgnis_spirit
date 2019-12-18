@@ -131,4 +131,8 @@ RailsAdmin.config do |config|
     end
   end
 
+  config.model 'Click' do
+    label 'Payment'
+  end
+
 end
