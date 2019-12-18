@@ -9,7 +9,7 @@ RailsAdmin.config do |config|
 
   ## == CancanCan ==
   config.authorize_with :cancancan
-  config.parent_controller = 'ApplicationController' 
+  config.parent_controller = 'ApplicationController'
 
   ## == Devise ==
   # config.authenticate_with do
@@ -34,17 +34,105 @@ RailsAdmin.config do |config|
 
   config.actions do
     dashboard                     # mandatory
-    index                         # mandatory
-    new
+    index                     # mandatory
+    new do
+      only ['Image', 'Advertisement']
+    end
     # export
     # bulk_delete
-    show
-    edit
+    show do
+      only ['Image', 'Advertisement']
+    end
+
+    edit do
+      only ['Image', 'Advertisement']
+    end
     delete
     # show_in_app
-
+    charts
     ## With an audit adapter, you can add:
     # history_index
     # history_show
   end
+
+  config.default_items_per_page = 10
+
+  config.model 'User' do
+    list do
+      field :id do
+        sort_reverse false
+      end
+      field :id
+      field :name
+      field :email
+      field :created_at
+    end
+    edit do
+      configure :schedule do
+        hide
+      end
+    end
+
+    show do
+      configure :schedule do
+        hide
+      end
+    end
+  end
+
+  config.model 'Image' do
+    list do
+      field :id do
+        sort_reverse false
+      end
+      field :title
+      # field :link do
+      #   thumb_method :thumb
+      # end
+      # field :file, :carrierwave
+      field :user_id
+      field :created_at
+    end
+
+    edit do
+      configure :schedule do
+        hide
+      end
+    end
+
+    show do
+      configure :schedule do
+        hide
+      end
+    end
+  end
+
+  config.model 'Advertisement' do
+    list do
+      field :adver_id do
+        sort_reverse false
+      end
+      field :title
+      field :file
+      field :link
+      field :created_at
+    end
+
+    edit do
+      configure :schedule do
+        hide
+      end
+    end
+
+    show do
+      configure :schedule do
+        hide
+      end
+    end
+  end
+
+  config.model 'Click' do
+    label 'Payment'
+  end
+
 end

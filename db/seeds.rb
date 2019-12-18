@@ -148,8 +148,23 @@ Advertisement.create!([
      file:"https://i.pinimg.com/originals/4d/33/69/4d336934112461bea404675c3da10c82.jpg",
      link:"https://www.colgate.com.vn/",
     },
-    {adver_id: 4, title:"",
+    {adver_id: 4, title:"Nike",
       file:"https://i.ytimg.com/vi/Fiaez8ieXMg/maxresdefault.jpg",
-      link:"https://www.colgate.com.vn/",
+      link:"https://www.nike.com/vn/",
      }
   ])
+
+# 50.times do
+#   id = Faker::Number.between(1,4)
+#   time = Faker::Time.between(7.days.ago, Time.now)             
+#   Click.create(advertisement_id: id, created_at: time)                           
+# end
+
+100.times do |n|
+    Click.create!([
+        {
+            advertisement_id: Faker::Number.between(from: 1, to: 4),
+            created_at: Faker::Time.between(from: DateTime.now - 90, to: DateTime.now) 
+        }
+    ])
+end
