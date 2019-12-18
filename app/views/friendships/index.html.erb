@@ -19,7 +19,7 @@
       				end
       			%>
       			<% slide_id_temp= slide_id %5 %>
-      			<li class="pane<%= slide_id_temp%>" data-image_id="<%= image.id %>" data-user_id="<%= image.user.id %>">
+      			<li class="pane<%= slide_id%>" data-image_id="<%= image.id %>" data-user_id="<%= image.user.id %>">
       				<div class="img">
       					<% if image.file.present?%>
       						<%= image_tag image.file.url, class:'center-block', 
